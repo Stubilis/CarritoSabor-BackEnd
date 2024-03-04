@@ -1,0 +1,6 @@
+@FlavorCart_HostAddress = http://localhost:5208
+
+GET {{FlavorCart_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
