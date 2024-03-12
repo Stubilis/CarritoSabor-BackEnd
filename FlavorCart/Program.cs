@@ -10,7 +10,7 @@ builder.Services.AddSwaggerGen();
 //JSON Serializer
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
   options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore).AddNewtonsoftJson
-  (options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+  (options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver());
 
 var app = builder.Build();
 
