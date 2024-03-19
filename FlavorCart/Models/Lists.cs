@@ -1,4 +1,6 @@
-﻿namespace FlavorCart.Models
+﻿using FlavorCart.Interfaces;
+
+namespace FlavorCart.Models
 {
     public class Lists : iList
     {

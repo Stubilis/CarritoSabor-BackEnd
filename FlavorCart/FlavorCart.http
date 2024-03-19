@@ -1,6 +1,6 @@
 @FlavorCart_HostAddress = http://localhost:5208
 
-GET {{FlavorCart_HostAddress}}/weatherforecast/
+GET {{FlavorCart_HostAddress}}/flavorcart/
 Accept: application/json
 
 ###

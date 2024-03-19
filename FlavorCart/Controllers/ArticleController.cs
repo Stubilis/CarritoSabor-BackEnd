@@ -1,43 +1,83 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FlavorCart.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ArticleController : ControllerBase
+    public class ArticleController : Controller
     {
-        // GET: api/<ArticleController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        // GET: ArticleController
+        public ActionResult Index()
         {
-            return new string[] { "value1", "value2" };
+            return View();
         }
 
-        // GET api/<ArticleController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET: ArticleController/Details/5
+        public ActionResult Details(int id)
         {
-            return "value";
+            return View();
         }
 
-        // POST api/<ArticleController>
+        // GET: ArticleController/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: ArticleController/Create
         [HttpPost]
-        public void Post([FromBody] string value)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(IFormCollection collection)
         {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
 
-        // PUT api/<ArticleController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // GET: ArticleController/Edit/5
+        public ActionResult Edit(int id)
         {
+            return View();
         }
 
-        // DELETE api/<ArticleController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // POST: ArticleController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, IFormCollection collection)
         {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: ArticleController/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        // POST: ArticleController/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }

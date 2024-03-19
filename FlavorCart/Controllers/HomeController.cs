@@ -1,4 +1,4 @@
-﻿using FireSharp.Interfaces;
+﻿
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static System.Net.WebRequestMethods;
@@ -7,6 +7,7 @@ namespace FlavorCart.Controllers
 {
     public class HomeController : Controller
     {
+        /*
         // GET: HomeController
         public ActionResult Index()
         {
@@ -92,5 +93,6 @@ namespace FlavorCart.Controllers
                 return View();
             }
         }
+        */
     }
 }

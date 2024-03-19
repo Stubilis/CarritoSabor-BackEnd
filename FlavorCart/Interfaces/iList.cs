@@ -1,4 +1,6 @@
-﻿namespace FlavorCart.Models
+﻿using FlavorCart.Models;
+
+namespace FlavorCart.Interfaces
 {
     public interface iList
     {
@@ -16,11 +18,11 @@
         {
             foreach (Article article in ArticleList)
             {
-                this.TotalPrize += article.AveragePrize;
+                TotalPrize += article.AveragePrize;
             }
-           
+
         }
-       
-      
+
+
     }
 }
