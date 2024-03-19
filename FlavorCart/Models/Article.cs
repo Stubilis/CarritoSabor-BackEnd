@@ -1,31 +1,51 @@
-using Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure;
+using FlavorCart.Interfaces;
+using Google.Cloud.Firestore;
+
 
 namespace FlavorCart.Models
 {
-    [PageModel]
-    public class Article
+    [FirestoreData]
+    public class Article : IBaseFirestoreData
     {
-        public int Id { get; set; }
+       
+        public string Id { get; set; }
+     
+         [FirestoreProperty]
         public string Name { get; set; }
-        public string Description { get; set; }
-        public string Image { get; set; }
-        public string Brand { get; set; }
-        public float[] Prize { get; set; }
-        public string[] Categories { get; set; }
-        public float AveragePrize { get; set; }
+        
+        [FirestoreProperty]
+        public string Description { get; set; } = string.Empty;
+      
+        [FirestoreProperty]
+        public string ImageUrl { get; set; }
+
+        [FirestoreProperty]
+        public string Brand { get; set; } = string.Empty;
+        
+        public Price [] Prices { get; set; }
+        
+        [FirestoreProperty]
+        public Category[] Categories { get; set; }
+
+        [FirestoreProperty]
+        public decimal AveragePrize { get; private set; } = 0;
+        
+        [FirestoreProperty]
         public int Count { get; set; } //cantidad de articulos
+      
+        [FirestoreProperty]
         public string Unit { get; set; } //unidad de medida como gramos, kilos, litros, etc
         
 
         //Set average prize with the prize array
         public void SetAveragePrize()
         {
-            float sum = 0;
-            foreach (float prize in Prize)
+            decimal sum = 0;
+            foreach (Price Price in Prices) 
             {
-                sum += prize;
+                sum += Price.PriceCost;
             }
-            this.AveragePrize = sum / Prize.Length;
+            this.AveragePrize =Decimal.Round(sum / Prices.Length,2);
         }
 
 

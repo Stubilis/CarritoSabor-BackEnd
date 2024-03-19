@@ -1,10 +1,22 @@
-﻿namespace FlavorCart.Models
+﻿using FlavorCart.Interfaces;
+using Google.Cloud.Firestore;
+
+namespace FlavorCart.Models
 {
-    public class Category
+
+    [FirestoreData]
+    public class Category : IBaseFirestoreData
     {
-        //ID y NOMBRE //icon 
-        public int Id { get; set; }
+        /// <inheritdoc />
+        /// [FirestoreProperty]
+        public string Id { get; set; }
+        ///<inheritdoc/>
+        [FirestoreProperty]
         public string Name { get; set; }
+        /// <summary>
+        /// Gets or sets the icon for the Category.
+        /// </summary>
+        [FirestoreProperty]
         public string Icon { get; set; }
     }
 }
