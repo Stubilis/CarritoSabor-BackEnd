@@ -5,42 +5,42 @@ using Google.Cloud.Firestore;
 
 namespace FlavorCart.Repositories
 {
-    public class UserRepository
+    public class PriceRepository
     {
-        private readonly BaseRepository<User> _repository;
-        public UserRepository()
+        private readonly BaseRepository<Price> _repository;
+        public PriceRepository()
         {
             // This should be injected - This is just an example.
-            _repository = new BaseRepository<User>(Collection.Users);
+            _repository = new BaseRepository<Price>(Collection.Users);
         }
 
-        public async Task<List<User>> GetAllAsync() => await _repository.GetAllAsync<User>();
+        public async Task<List<Price>> GetAllAsync() => await _repository.GetAllAsync<Price>();
 
-        public async Task<User?> GetAsync(User entity) => (User?)await _repository.GetAsync(entity);
+        public async Task<Price?> GetAsync(Price entity) => (Price?)await _repository.GetAsync(entity);
 
-        public async Task<User> AddAsync(User entity) => await _repository.AddAsync(entity);
+        public async Task<Price> AddAsync(Price entity) => await _repository.AddAsync(entity);
 
-        public async Task<User> UpdateAsync(User entity) => await _repository.UpdateAsync(entity);
+        public async Task<Price> UpdateAsync(Price entity) => await _repository.UpdateAsync(entity);
 
-        public async Task DeleteAsync(User entity) => await _repository.DeleteAsync(entity);
+        public async Task DeleteAsync(Price entity) => await _repository.DeleteAsync(entity);
 
-        public async Task<List<User>> QueryRecordsAsync(Query query) => await _repository.QueryRecordsAsync<User>(query);
+        public async Task<List<Price>> QueryRecordsAsync(Query query) => await _repository.QueryRecordsAsync<Price>(query);
 
-        // This is specific to users.
-        /*
-        public async Task<List<User>> GetUserWhereCity(string cityName)
+        // This is specific to Price.
+        
+        public async Task<List<Price>> GetPriceWhereArticle(string articleId)
         {
-            var cities = new List<City>()
+            var articles = new List<Article>()
         {
             new()
             {
-                Name=cityName
+                Id=articleId
             }
         };
 
-            var query = _repository._firestoreDb.Collection(Collection.Users.ToString()).WhereIn(nameof(User.CityFrom), cities);
+            var query = _repository._firestoreDb.Collection(Collection.Prices.ToString()).WhereIn(nameof(Price.ArticleId), articles);
             return await this.QueryRecordsAsync(query);
         }
-        */
+        
     }
 }

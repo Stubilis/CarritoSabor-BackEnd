@@ -6,66 +6,66 @@ using Microsoft.AspNetCore.Mvc;
 namespace Firestore.Controllers;
 [ApiController]
 [Route("[controller]")]
-public class CategoryFirestoreController : ControllerBase
+public class ArticleFirestoreController : ControllerBase
 {
     private readonly ILogger<FirestoreController> _logger;
     // This should be injected - This is only an example
-    private readonly CategoryRepository _categoryRepository = new();
+    private readonly ArticleRepository _articleRepository = new();
 
-    public CategoryFirestoreController(ILogger<FirestoreController> logger)
+    public ArticleFirestoreController(ILogger<FirestoreController> logger)
     {
         _logger = logger;
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Category>>> GetAllCategoriesAsync()
+    public async Task<ActionResult<List<Article>>> GetAllArticlesAsync()
     {
-        return Ok(await _categoryRepository.GetAllAsync());
+        return Ok(await _articleRepository.GetAllAsync());
     }
 
     [HttpGet]
     [Route("{id}")]
-    public async Task<ActionResult<Category>> GetUserAsync(string id)
+    public async Task<ActionResult<Article>> GetArticlesAsync(string id)
     {
-        var user = new Category()
+        var user = new Article()
         {
             Id = id
         };
 
-        return Ok(await _categoryRepository.GetAsync(user));
+        return Ok(await _articleRepository.GetAsync(user));
     }
 
     [HttpPost]
     [Route("{id}")]
-    public async Task<ActionResult<User>> UpdateUserAsync(string id, Category user)
+    public async Task<ActionResult<User>> UpdateArticleAsync(string id, Article user)
     {
         if (id != user.Id)
         {
             return BadRequest("Id must match.");
         }
 
-        return Ok(await _categoryRepository.UpdateAsync(user));
+        return Ok(await _articleRepository.UpdateAsync(user));
     }
 
     [HttpDelete]
     [Route("{id}")]
-    public async Task<ActionResult> DeleteUserAsync(string id, Category user)
+    public async Task<ActionResult> DeleteArticleAsync(string id, Article user)
     {
         if (id != user.Id)
         {
             return BadRequest("Id must match.");
         }
 
-        await _categoryRepository.DeleteAsync(user);
+        await _articleRepository.DeleteAsync(user);
 
         return Ok();
     }
 
 
     [HttpPut]
-    public async Task<ActionResult<Category>> DeleteUserAsync(Category user)
+    public async Task<ActionResult<Article>> DeleteArticleAsync(Article user)
     {
-        return Ok(await _categoryRepository.AddAsync(user));
+        return Ok(await _articleRepository.AddAsync(user));
     }
     /*
     [HttpGet]

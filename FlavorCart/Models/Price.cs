@@ -3,6 +3,7 @@ using Google.Cloud.Firestore;
 
 namespace FlavorCart.Models
 {
+    [FirestoreData]
     public class Price : IBaseFirestoreData
     {
         //id
@@ -17,9 +18,9 @@ namespace FlavorCart.Models
         [FirestoreProperty]
         public DateOnly Date { get; set; }
         [FirestoreProperty]
-        public Article Article { get; set; }
+        public string ArticleId { get; set; }
         [FirestoreProperty]
-        public decimal PriceCost { get; set; }
+        public float PriceCost { get; set; }
        
     }
 }

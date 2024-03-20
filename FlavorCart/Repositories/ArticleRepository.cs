@@ -28,7 +28,7 @@ namespace FlavorCart.Repositories
 
         // This is specific to Articles.
         
-        public async Task<List<Article>> GetUserWhereCategory(string catName)
+        public async Task<List<Article>> GetArticleWhereCategory(string catName)
         {
             var categories = new List<Category>()
         {

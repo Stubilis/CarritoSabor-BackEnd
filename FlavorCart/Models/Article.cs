@@ -28,7 +28,7 @@ namespace FlavorCart.Models
         public Category[] Categories { get; set; }
 
         [FirestoreProperty]
-        public decimal AveragePrize { get; private set; } = 0;
+        public float AveragePrize { get; private set; } = 0;
         
         [FirestoreProperty]
         public int Count { get; set; } //cantidad de articulos
@@ -40,12 +40,12 @@ namespace FlavorCart.Models
         //Set average prize with the prize array
         public void SetAveragePrize()
         {
-            decimal sum = 0;
+            float sum = 0;
             foreach (Price Price in Prices) 
             {
                 sum += Price.PriceCost;
             }
-            this.AveragePrize =Decimal.Round(sum / Prices.Length,2);
+            this.AveragePrize =float.Round(sum / Prices.Length,2);
         }
 
 
