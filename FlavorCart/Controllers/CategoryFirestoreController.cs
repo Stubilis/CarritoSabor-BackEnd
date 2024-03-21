@@ -8,11 +8,11 @@ namespace Firestore.Controllers;
 [Route("[controller]")]
 public class CategoryFirestoreController : ControllerBase
 {
-    private readonly ILogger<FirestoreController> _logger;
+    private readonly ILogger<UserFirestoreController> _logger;
     // This should be injected - This is only an example
     private readonly CategoryRepository _categoryRepository = new();
 
-    public CategoryFirestoreController(ILogger<FirestoreController> logger)
+    public CategoryFirestoreController(ILogger<UserFirestoreController> logger)
     {
         _logger = logger;
     }
@@ -25,7 +25,7 @@ public class CategoryFirestoreController : ControllerBase
 
     [HttpGet]
     [Route("{id}")]
-    public async Task<ActionResult<Category>> GetUserAsync(string id)
+    public async Task<ActionResult<Category>> GetCategoryAsync(string id)
     {
         var user = new Category()
         {
@@ -35,9 +35,9 @@ public class CategoryFirestoreController : ControllerBase
         return Ok(await _categoryRepository.GetAsync(user));
     }
 
-    [HttpPost]
+    [HttpPut]
     [Route("{id}")]
-    public async Task<ActionResult<User>> UpdateUserAsync(string id, Category user)
+    public async Task<ActionResult<User>> UpdateCategoryAsync(string id, Category user)
     {
         if (id != user.Id)
         {
@@ -49,7 +49,7 @@ public class CategoryFirestoreController : ControllerBase
 
     [HttpDelete]
     [Route("{id}")]
-    public async Task<ActionResult> DeleteUserAsync(string id, Category user)
+    public async Task<ActionResult> DeleteCategoryAsync(string id, Category user)
     {
         if (id != user.Id)
         {
@@ -62,8 +62,8 @@ public class CategoryFirestoreController : ControllerBase
     }
 
 
-    [HttpPut]
-    public async Task<ActionResult<Category>> DeleteUserAsync(Category user)
+    [HttpPost]
+    public async Task<ActionResult<Category>> AddCategoryAsync(Category user)
     {
         return Ok(await _categoryRepository.AddAsync(user));
     }

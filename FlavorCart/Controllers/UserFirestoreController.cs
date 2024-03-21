@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace Firestore.Controllers;
 [ApiController]
 [Route("[controller]")]
-public class FirestoreController : ControllerBase
+public class UserFirestoreController : ControllerBase
 {
-    private readonly ILogger<FirestoreController> _logger;
+    private readonly ILogger<UserFirestoreController> _logger;
     // This should be injected - This is only an example
     private readonly UserRepository _userRepository = new();
 
-    public FirestoreController(ILogger<FirestoreController> logger)
+    public UserFirestoreController(ILogger<UserFirestoreController> logger)
     {
         _logger = logger;
     }
@@ -35,7 +35,7 @@ public class FirestoreController : ControllerBase
         return Ok(await _userRepository.GetAsync(user));
     }
 
-    [HttpPost]
+    [HttpPut]
     [Route("{id}")]
     public async Task<ActionResult<User>> UpdateUserAsync(string id, User user)
     {
@@ -62,8 +62,8 @@ public class FirestoreController : ControllerBase
     }
 
 
-    [HttpPut]
-    public async Task<ActionResult<User>> DeleteUserAsync(User user)
+    [HttpPost]
+    public async Task<ActionResult<User>> AddUserAsync(User user)
     {
         return Ok(await _userRepository.AddAsync(user));
     }
