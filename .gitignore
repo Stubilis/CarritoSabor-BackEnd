@@ -364,3 +364,4 @@ FodyWeavers.xsd
 /FlavorCart/Controllers/FiresoteService.cs
 /FlavorCart/Controllers/ArticleController.cs
 /FlavorCart/Controllers/CategoryController.cs
+/FlavorCart/Controllers/HomeController.cs
