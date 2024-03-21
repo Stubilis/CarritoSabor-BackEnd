@@ -8,30 +8,23 @@ namespace FlavorCart.Models
     {
         /// <inheritdoc />
         public string Id { get; set; }
-
+        //Check token for user
+        
         /// <inheritdoc />
         [FirestoreProperty]
-        public string Name { get; set; }
+        public string Name { get; set; } = "Nombre de usuario";
 
-        /// <summary>
-        /// Gets or sets the surname of the user.
-        /// </summary>
+        
         [FirestoreProperty]
-        public string Surname { get; set; }
+        public string Surname { get; set; } = "Apellido de usuario";
 
-        /// <summary>
-        /// Gets or sets the nickname of the user.
-        /// </summary>
+        
         [FirestoreProperty]
-        public string Nickname { get; set; }
-        /// <summary>
-        /// Gets or sets the email of the user.
-        /// </summary>
+        public string Nickname { get; set; } = "Apodo de usuario";
+        
         [FirestoreProperty]
-        public string Email { get; set; }
-        /// <summary>
-        /// Gets or sets a password that will not be saved.
-        /// </summary> 
+        public string Email { get; set; } = "email@ejemplo.com";
+     
         public string Password { get; set; }
 
 

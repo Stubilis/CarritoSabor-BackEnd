@@ -27,45 +27,45 @@ public class ArticleFirestoreController : ControllerBase
     [Route("{id}")]
     public async Task<ActionResult<Article>> GetArticlesAsync(string id)
     {
-        var user = new Article()
+        var article = new Article()
         {
             Id = id
         };
 
-        return Ok(await _articleRepository.GetAsync(user));
+        return Ok(await _articleRepository.GetAsync(article));
     }
 
-    [HttpPost]
+    [HttpPut]
     [Route("{id}")]
-    public async Task<ActionResult<User>> UpdateArticleAsync(string id, Article user)
+    public async Task<ActionResult<User>> UpdateArticleAsync(string id, Article article)
     {
-        if (id != user.Id)
+        if (id != article.Id)
         {
             return BadRequest("Id must match.");
         }
 
-        return Ok(await _articleRepository.UpdateAsync(user));
+        return Ok(await _articleRepository.UpdateAsync(article));
     }
 
     [HttpDelete]
     [Route("{id}")]
-    public async Task<ActionResult> DeleteArticleAsync(string id, Article user)
+    public async Task<ActionResult> DeleteArticleAsync(string id, Article article)
     {
-        if (id != user.Id)
+        if (id != article.Id)
         {
             return BadRequest("Id must match.");
         }
 
-        await _articleRepository.DeleteAsync(user);
+        await _articleRepository.DeleteAsync(article);
 
         return Ok();
     }
 
 
-    [HttpPut]
-    public async Task<ActionResult<Article>> DeleteArticleAsync(Article user)
+    [HttpPost]
+    public async Task<ActionResult<Article>> AddArticleAsync(Article article)
     {
-        return Ok(await _articleRepository.AddAsync(user));
+        return Ok(await _articleRepository.AddAsync(article));
     }
     /*
     [HttpGet]

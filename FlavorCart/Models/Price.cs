@@ -4,7 +4,7 @@ using Google.Cloud.Firestore;
 namespace FlavorCart.Models
 {
     [FirestoreData]
-    public class Price 
+    public class Price : IBaseFirestoreData
     {
       
         public string Id { get ; set ; }
@@ -19,6 +19,7 @@ namespace FlavorCart.Models
         public string Currency { get; set; } = "€";
         [FirestoreProperty]
         public string Shop { get; set; }
+        string IBaseFirestoreData.Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         private void setDate()
         {

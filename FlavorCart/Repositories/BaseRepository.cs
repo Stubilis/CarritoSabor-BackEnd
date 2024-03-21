@@ -19,7 +19,8 @@ namespace FlavorCart.Repositories
             {
                 // This should live in the appsetting file and injected - This is just an example.
                 _collection = collection;
-                var filepath = @"C:\Users\Estíbaliz\Downloads\flavorcart-b4372-firebase-adminsdk-rhygj-2d24944b27.json";
+            // var filepath = @"C:\Users\Estíbaliz\Downloads\flavorcart-b4372-firebase-adminsdk-rhygj-2d24944b27.json";
+                var filepath = Environment.ExpandEnvironmentVariables("%USERPROFILE%\\Downloads\\flavorcart-b4372-firebase-adminsdk-rhygj-2d24944b27.json");
                 Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", filepath);
                 _firestoreDb = FirestoreDb.Create("flavorcart-b4372");
 

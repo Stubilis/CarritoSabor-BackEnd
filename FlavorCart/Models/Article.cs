@@ -22,7 +22,7 @@ namespace FlavorCart.Models
         [FirestoreProperty]
         public string Brand { get; set; } = string.Empty;
         
-        public Price [] Prices { get; set; }
+        public string [] Prices { get; set; }
         
         [FirestoreProperty]
         public string[] Categories { get; set; } //Save here the categories id
@@ -38,16 +38,17 @@ namespace FlavorCart.Models
         
 
         //Set average prize with the prize array
+        /*
         public void SetAveragePrize()
         {
             float sum = 0;
             foreach (Price Price in Prices) 
             {
-                sum += Price.PriceCost;
+                sum += Price.Cost;
             }
             this.AveragePrize =float.Round(sum / Prices.Length,2);
         }
 
-
+        */
     }
 }

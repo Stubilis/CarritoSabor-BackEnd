@@ -27,45 +27,45 @@ public class CategoryFirestoreController : ControllerBase
     [Route("{id}")]
     public async Task<ActionResult<Category>> GetCategoryAsync(string id)
     {
-        var user = new Category()
+        var category = new Category()
         {
             Id = id
         };
 
-        return Ok(await _categoryRepository.GetAsync(user));
+        return Ok(await _categoryRepository.GetAsync(category));
     }
 
     [HttpPut]
     [Route("{id}")]
-    public async Task<ActionResult<User>> UpdateCategoryAsync(string id, Category user)
+    public async Task<ActionResult<User>> UpdateCategoryAsync(string id, Category category)
     {
-        if (id != user.Id)
+        if (id != category.Id)
         {
             return BadRequest("Id must match.");
         }
 
-        return Ok(await _categoryRepository.UpdateAsync(user));
+        return Ok(await _categoryRepository.UpdateAsync(category));
     }
 
     [HttpDelete]
     [Route("{id}")]
-    public async Task<ActionResult> DeleteCategoryAsync(string id, Category user)
+    public async Task<ActionResult> DeleteCategoryAsync(string id, Category category)
     {
-        if (id != user.Id)
+        if (id != category.Id)
         {
             return BadRequest("Id must match.");
         }
 
-        await _categoryRepository.DeleteAsync(user);
+        await _categoryRepository.DeleteAsync(category);
 
         return Ok();
     }
 
 
     [HttpPost]
-    public async Task<ActionResult<Category>> AddCategoryAsync(Category user)
+    public async Task<ActionResult<Category>> AddCategoryAsync(Category category)
     {
-        return Ok(await _categoryRepository.AddAsync(user));
+        return Ok(await _categoryRepository.AddAsync(category));
     }
     /*
     [HttpGet]
