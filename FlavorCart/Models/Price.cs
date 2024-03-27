@@ -10,7 +10,7 @@ namespace FlavorCart.Models
         public string Id { get ; set ; }
        
         [FirestoreProperty]
-        public DateOnly Date { get; private set; }
+        public string PriceDate { get; private set; }
         [FirestoreProperty]
         public string ArticleId { get; set; }
         [FirestoreProperty]
@@ -21,19 +21,19 @@ namespace FlavorCart.Models
         public string Shop { get; set; }
         string IBaseFirestoreData.Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        private void setDate()
+        private void setPriceDate()
         {
-            this.Date = DateOnly.FromDateTime(DateTime.Now);
-        } 
-
-    //Constructor
-    public Price(string articleId, float cost, string currency, string shop)
-        {
-        this.ArticleId = articleId;
-        this.Cost = cost;
-        this.Currency = currency;
-        this.Shop = shop;
-        setDate();
+            DateOnly now = DateOnly.FromDateTime(DateTime.Now);
+            this.PriceDate = now.ToLongDateString();
+          
         }
+
+        //Constructor  
+            public Price()
+            {
+           
+            setPriceDate();
+            }
+        
     }
 }

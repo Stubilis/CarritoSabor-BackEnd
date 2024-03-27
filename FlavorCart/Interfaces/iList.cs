@@ -6,10 +6,10 @@ namespace FlavorCart.Interfaces
     {
         //id,name,array of articles,prize
         string[] ArticleList { get; set; }
-        string Name { get; set; }
+        
 
         string UserId { get; set; }
-        int Id { get; set; }
+     
         float TotalPrize { get; set; }
 
 

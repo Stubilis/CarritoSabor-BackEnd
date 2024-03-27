@@ -11,7 +11,7 @@ namespace FlavorCart.Repositories
         public PriceRepository()
         {
             // This should be injected - This is just an example.
-            _repository = new BaseRepository<Price>(Collection.Users);
+            _repository = new BaseRepository<Price>(Collection.Prices);
         }
 
         public async Task<List<Price>> GetAllAsync() => await _repository.GetAllAsync<Price>();

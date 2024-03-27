@@ -4,23 +4,38 @@ using Google.Cloud.Firestore;
 namespace FlavorCart.Models
 {
     [FirestoreData]
-    public class Lists : iList 
+    public class Lists : iList, IBaseFirestoreData
     {
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Id { get; set; }
 
         [FirestoreProperty]
-        public string [] ArticleList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Name { get; set; }
+
         [FirestoreProperty]
-        public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        
-  
+        public string[] ArticleList { get; set; }
+
         [FirestoreProperty]
-        public float TotalPrize { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public float TotalPrize { get; set; }
+
         [FirestoreProperty]
-        public string UserId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string UserId { get; set; }
+
         [FirestoreProperty]
-        public DateOnly CreationDate { get;set; }
+        public string CreationDate { get;private set; }
+
         [FirestoreProperty]
         public bool IsPublic { get; set; }
+        private void setCreationDate()
+        {
+            DateOnly now = DateOnly.FromDateTime(DateTime.Now);
+            this.CreationDate = now.ToLongDateString();
+
+        }
+        //constructor
+        public Lists()
+        {
+            setCreationDate();
+        }
     }
+
 }

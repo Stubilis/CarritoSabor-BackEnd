@@ -67,13 +67,13 @@ public class ArticleFirestoreController : ControllerBase
     {
         return Ok(await _articleRepository.AddAsync(article));
     }
-    /*
+    
     [HttpGet]
-    [Route("city/{city}")]
-    public async Task<ActionResult<User>> GetUserWhereCity(string city)
+    [Route("category/{category}")]
+    public async Task<ActionResult<User>> GetArticleByCategory(string category)
     {
-        return Ok(await _userRepository.GetUserWhereCity(city));
+        return Ok(await _articleRepository.GetArticleByCategory(category));
     }
-    */
+    
 
 }

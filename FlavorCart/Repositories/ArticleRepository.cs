@@ -27,20 +27,20 @@ namespace FlavorCart.Repositories
         public async Task<List<Article>> QueryRecordsAsync(Query query) => await _repository.QueryRecordsAsync<Article>(query);
 
         // This is specific to Articles.
-        
-        public async Task<List<Article>> GetArticleWhereCategory(string catName)
+
+        public async Task<List<Article>> GetArticleByCategory(string catId)
         {
             var categories = new List<Category>()
-        {
-            new()
-            {
-                Name=catName
-            }
-        };
+                {
+                    new()
+                    {
+                        Id=catId
+                    }
+                };
 
-            var query = _repository._firestoreDb.Collection(Collection.Articles.ToString()).WhereIn(nameof(Article.Categories), categories);
+            var query = _repository._firestoreDb.Collection(Collection.Articles.ToString()).WhereArrayContains(nameof(Article.Categories), categories);
             return await this.QueryRecordsAsync(query);
         }
-        
+
     }
 }
