@@ -44,3 +44,10 @@ namespace FlavorCart.Repositories
         */
     }
 }
+//TODO IN BACK:
+// Relate users with google users (Maybe not in front)
+// Add surname2 to user? Not sure about that
+// delete password from user
+
+// GET user by GoogleId or Login using google token
+// add languaje to user

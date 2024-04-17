@@ -13,18 +13,16 @@ namespace FlavorCart.Models
         /// <inheritdoc />
         [FirestoreProperty]
         public string Name { get; set; } = "Nombre de usuario";
-
-        
-        [FirestoreProperty]
-        public string Surname { get; set; } = "Apellido de usuario";
-
         
         [FirestoreProperty]
         public string Nickname { get; set; } = "Apodo de usuario";
         
         [FirestoreProperty]
         public string Email { get; set; } = "email@ejemplo.com";
-     
+
+        [FirestoreProperty]
+        public string Languaje { get; set; } = "ES";
+
         public string Password { get; set; }
 
 

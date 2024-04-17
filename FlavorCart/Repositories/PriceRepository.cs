@@ -28,7 +28,7 @@ namespace FlavorCart.Repositories
 
         // This is specific to Price.
         
-        public async Task<List<Price>> GetPriceWhereArticle(string articleId)
+        public async Task<List<Price>> GetPriceByArticle(string articleId)
         {
             var articles = new List<Article>()
         {

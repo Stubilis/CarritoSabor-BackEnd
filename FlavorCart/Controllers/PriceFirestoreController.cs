@@ -67,6 +67,14 @@ public class PriceFirestoreController : ControllerBase
     {
         return Ok(await _priceRepository.AddAsync(price));
     }
+
+    //GET prices by article
+    [HttpGet]
+    [Route("article/{article}")]
+    public async Task<ActionResult<Price>> GetPriceByArticle(string article)
+    {
+        return Ok(await _priceRepository.GetPriceByArticle(article));
+    }
     /*
     [HttpGet]
     [Route("city/{city}")]
