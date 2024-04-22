@@ -17,38 +17,22 @@ namespace FlavorCart.Models
         public string Description { get; set; } = string.Empty;
       
         [FirestoreProperty]
-        public string ImageUrl { get; set; }
+        public string ImageUrl { get; set; } = string.Empty;
 
         [FirestoreProperty]
         public string Brand { get; set; } = string.Empty;
-        
-        public string [] Prices { get; set; }
-        
-        [FirestoreProperty]
-        public string[] Categories { get; set; } //Save here the categories id
 
         [FirestoreProperty]
-        public float AveragePrize { get; private set; } = 0;
-        
-        [FirestoreProperty]
-        public int Count { get; set; } //cantidad de articulos
-      
-        [FirestoreProperty]
-        public string Unit { get; set; } //unidad de medida como gramos, kilos, litros, etc
-        
+        public string[] Categories { get; set; } = { string.Empty };//Save here the categories id
 
-        //Set average prize with the prize array
-        /*
-        public void SetAveragePrize()
-        {
-            float sum = 0;
-            foreach (Price Price in Prices) 
-            {
-                sum += Price.Cost;
-            }
-            this.AveragePrize =float.Round(sum / Prices.Length,2);
-        }
+        [FirestoreProperty]
+        public float AveragePrice { get; set; } = 0;
 
-        */
+        [FirestoreProperty]
+        public int Quantity { get; set; } = 0; //Amount of articles 
+
+        [FirestoreProperty]
+        public string Unit { get; set; } = ""; // Unit of measure for the quantity of articles
+        
     }
 }

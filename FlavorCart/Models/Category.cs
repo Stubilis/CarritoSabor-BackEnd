@@ -17,6 +17,6 @@ namespace FlavorCart.Models
         /// Gets or sets the icon for the Category.
         /// </summary>
         [FirestoreProperty]
-        public string Icon { get; set; }
+        public string IconURL { get; set; } = string.Empty; //URL to the icon
     }
 }

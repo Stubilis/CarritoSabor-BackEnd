@@ -23,17 +23,30 @@ namespace FlavorCart.Models
 
         private void setPriceDate()
         {
-            DateOnly now = DateOnly.FromDateTime(DateTime.Now);
-            this.PriceDate = now.ToLongDateString();
-          
+           this.PriceDate =  DateTime.Now.ToString();
+
         }
+
 
         //Constructor  
             public Price()
             {
-           
             setPriceDate();
+            updateMediumPrice(this.ArticleId);
             }
-        
+        private void updateMediumPrice (string artId)
+        {
+
+
+        }
     }
+
+    //TODO
+    //When a price is added, the average price of the article should be updated
+    //When a price is deleted, the average price of the article should be updated
+    //When a price is updated, the average price of the article should be updated
+    //When a price is added, the medium price of the article should be updated
+    //When a price is deleted, the medium price of the article should be updated
+    //When a price is updated, the medium price of the article should be updated
+
 }

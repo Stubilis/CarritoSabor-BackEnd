@@ -1,5 +1,6 @@
 ﻿using FlavorCart.Interfaces;
 using Google.Cloud.Firestore;
+using System.Globalization;
 
 namespace FlavorCart.Models
 {
@@ -12,10 +13,10 @@ namespace FlavorCart.Models
         public string Name { get; set; }
 
         [FirestoreProperty]
-        public string[] ArticleList { get; set; }
+        public string[] ArticleList { get; set; } //Save here the articles id
 
         [FirestoreProperty]
-        public float TotalPrize { get; set; }
+        public float TotalPrize { get; set; } = 0;
 
         [FirestoreProperty]
         public string UserId { get; set; }
@@ -27,8 +28,10 @@ namespace FlavorCart.Models
         public bool IsPublic { get; set; }
         private void setCreationDate()
         {
-            DateOnly now = DateOnly.FromDateTime(DateTime.Now);
-            this.CreationDate = now.ToLongDateString();
+            DateTime localDate = DateTime.Now;
+            //Get user language and set the date format
+
+            this.CreationDate = localDate.ToString(new CultureInfo("en-US"));
 
         }
         //constructor

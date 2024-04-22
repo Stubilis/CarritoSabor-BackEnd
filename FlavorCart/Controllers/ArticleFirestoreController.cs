@@ -70,7 +70,7 @@ public class ArticleFirestoreController : ControllerBase
     
     [HttpGet]
     [Route("category/{category}")]
-    public async Task<ActionResult<User>> GetArticleByCategory(string category)
+    public async Task<ActionResult<Article>> GetArticleByCategory(string category)
     {
         return Ok(await _articleRepository.GetArticleByCategory(category));
     }
