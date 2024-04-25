@@ -10,7 +10,8 @@
         Articles = 3,
         Recipes = 4,
         Lists = 5,
-        Prices = 6
+        Prices = 6,
+        UserTokens=7
 
 
     }
