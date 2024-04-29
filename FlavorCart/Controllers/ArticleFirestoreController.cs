@@ -4,6 +4,8 @@ using FlavorCart.Repositories;
 using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.IO.Pipelines;
+using System.Net.Http.Headers;
 
 namespace Firestore.Controllers;
 [ApiController]
@@ -77,47 +79,5 @@ public class ArticleFirestoreController : ControllerBase
         return Ok(await _articleRepository.GetArticleByCategory(category));
     }
     
-    [AllowAnonymous]
-    [HttpPost("verify")]
-    public async Task<ActionResult> Verify()
-    {
-
-        string token = Request.Headers["Authorization"].ToString().Remove(0, 7); //remove Bearer 
-        var payload = await VerifyGoogleTokenId(token);
-        if (payload == null)
-        {
-            return BadRequest("Invalid token");
-        }
-
-
-        return Ok(payload);
-    }
-    [HttpPost]
-    public async Task<GoogleJsonWebSignature.Payload> VerifyGoogleTokenId(string token)
-    {
-        /*
-        try
-        {
-            // uncomment these lines if you want to add settings: 
-            // var validationSettings = new GoogleJsonWebSignature.ValidationSettings
-            // { 
-            //     Audience = new string[] { "yourServerClientIdFromGoogleConsole.apps.googleusercontent.com" }
-            // };
-            // Add your settings and then get the payload
-            // GoogleJsonWebSignature.Payload payload =  await GoogleJsonWebSignature.ValidateAsync(token, validationSettings);
-
-            // Or Get the payload without settings.
-            GoogleJsonWebSignature.Payload payload = await GoogleJsonWebSignature.ValidateAsync(token);
-
-            return payload;
-        }
-        catch (System.Exception)
-        {
-            Console.WriteLine("invalid google token");
-
-        }
-        */
-        return null;
-        
-    }
+   
 }

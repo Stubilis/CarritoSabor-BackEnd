@@ -13,7 +13,7 @@ namespace FlavorCart.Models
         public string Name { get; set; }
 
         [FirestoreProperty]
-        public string[] ArticleList { get; set; } //Save here the articles id
+        public List<ListItem> ArticleList { get; set; } //Save here the articles id + amount
 
         [FirestoreProperty]
         public float TotalPrize { get; set; } = 0;

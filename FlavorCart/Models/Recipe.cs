@@ -9,7 +9,7 @@ namespace FlavorCart.Models
         
         public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         [FirestoreProperty]
-        public string[] ArticleList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public List<ListItem> ArticleList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         [FirestoreProperty]
         public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         [FirestoreProperty]

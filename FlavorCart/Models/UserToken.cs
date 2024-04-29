@@ -13,7 +13,7 @@ namespace FlavorCart.Models
         public string Name { get; set; }
 
         [FirestoreProperty]
-        public string UserId { get; set; } // user
+        public string UserEmail { get; set; } // user
         
         [FirestoreProperty]
         public string Token { get; set; } // user's token
