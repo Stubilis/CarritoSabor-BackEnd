@@ -5,13 +5,14 @@ namespace FlavorCart.Interfaces
     /// <summary>
     /// Represents a firestore base repository.
     /// </summary>
-    public interface IBaseRepository<T>
+    public interface IUserRepository<T>
     {
         /// <summary>
         /// Gets all record from the repository.
         /// </summary> 
         /// <returns>a records of type T</returns>
-        Task<List<T>> GetAllAsync<T>() where T : IBaseFirestoreData;
+        Task<List<T>> GetAllAsync<T>() where T : IUserFirestoreData;
+
         /// <summary>
         /// Gets a record from the repository.
         /// </summary>
@@ -31,7 +32,7 @@ namespace FlavorCart.Interfaces
         /// </summary>
         /// <param name="entity"></param>
         /// <returns>a record of type T</returns>
-        Task<T> UpdateAsync<T>(T entity) where T : IBaseFirestoreData ;
+        Task<T> UpdateAsync<T>(T entity) where T : IBaseFirestoreData;
 
         /// <summary>
         /// Adds a record to the repository.

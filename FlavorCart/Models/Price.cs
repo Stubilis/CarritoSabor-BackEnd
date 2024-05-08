@@ -19,7 +19,7 @@ namespace FlavorCart.Models
         public string Currency { get; set; } = "€";
         [FirestoreProperty]
         public string Shop { get; set; }
-        string IBaseFirestoreData.Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+       
 
         private void setPriceDate()
         {

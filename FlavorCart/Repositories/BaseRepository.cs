@@ -10,7 +10,7 @@ namespace FlavorCart.Repositories
         ///     Represents the base repository.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public class BaseRepository<T> : IBaseRepository<T>
+        public class BaseRepository<T> : IBaseRepository<T> 
         {
             private readonly Collection _collection;
             public FirestoreDb _firestoreDb;

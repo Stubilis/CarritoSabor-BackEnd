@@ -13,6 +13,6 @@
         /// <summary>
         /// Gets and set the name.
         /// </summary>
-        public string Name { get; set; }
+       // public string Name { get; set; }
     }
 }

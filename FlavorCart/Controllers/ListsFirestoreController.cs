@@ -8,11 +8,11 @@ namespace Firestore.Controllers;
 [Route("[controller]")]
 public class ListsFirestoreController : ControllerBase
 {
-    private readonly ILogger<UserFirestoreController> _logger;
+    private readonly ILogger<ListsFirestoreController> _logger;
     // This should be injected - This is only an example
     private readonly ListsRepository _listsRepository = new();
 
-    public ListsFirestoreController(ILogger<UserFirestoreController> logger)
+    public ListsFirestoreController(ILogger<ListsFirestoreController> logger)
     {
         _logger = logger;
     }

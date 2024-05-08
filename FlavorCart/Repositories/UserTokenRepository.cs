@@ -29,6 +29,25 @@ namespace FlavorCart.Repositories
 
         public async Task<List<UserToken>> QueryRecordsAsync(Query query) => await _repository.QueryRecordsAsync<UserToken>(query);
 
-       
+        public async Task<List<UserToken>> GetUserByEmailAsync(UserToken entity)
+        {
+            var query = _repository._firestoreDb.Collection("UserTokens").WhereEqualTo("Email", entity.Email);
+            return await this.QueryRecordsAsync(query);
+        }
+        public async Task<UserToken> UpdateAsyncByEmail(UserToken entity)
+        {
+            var query = _repository._firestoreDb.Collection("UserTokens").WhereEqualTo("Email", entity.Email);
+            var user = await this.QueryRecordsAsync(query);
+            //
+            return await _repository.UpdateAsync(user[0]);
+        }
+
+        internal async Task UpdateAsync(List<UserToken> result)
+        {
+            foreach (var user in result)
+            {
+                await _repository.UpdateAsync(user);
+            }
+        }
     }
 }

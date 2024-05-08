@@ -21,7 +21,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-string[] origins = new string[] { "http://localhost:3000" , "http://localhost:4200" };
+string[] origins = { "http://localhost:4200", "http://localhost:5208" };
 //Add CORS Policy to allow cross-origin requests
 //Change the URL to the URL of your frontend
 app.UseCors(options => options.WithOrigins(origins).AllowAnyMethod().AllowAnyHeader());
