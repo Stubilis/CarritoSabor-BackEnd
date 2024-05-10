@@ -83,8 +83,8 @@ public class UserTokenController : ControllerBase
         return Ok(await _userTokenRepository.AddAsync(user));
     }
 
-   // [AllowAnonymous]
-    //[HttpPost("verify")]
+    [AllowAnonymous]
+    [HttpPost("verify")]
     public async Task<ActionResult> Verify(string token)
     {
             var payload = await VerifyGoogleTokenId(token);
