@@ -4,8 +4,7 @@ using FlavorCart.Repositories;
 using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.Net.Http.Headers;
+
 
 namespace Firestore.Controllers;
 [ApiController]
@@ -29,17 +28,7 @@ public class UserTokenController : ControllerBase
         return Ok(await _userTokenRepository.GetAllAsync());
     }
 
-   /* [HttpGet]
-    [Route("{id}")]
-    public async Task<ActionResult<UserToken>> GetUserAsync(string id)
-    {
-        var user = new UserToken()
-        {
-            Id = id
-        };
-
-        return Ok(await _userTokenRepository.GetAsync(user));
-    }*/
+   
     [HttpGet]
     [Route("{email}")]
     public async Task<ActionResult<UserToken>> GetUserByEmailAsync(string email)
@@ -116,10 +105,11 @@ public class UserTokenController : ControllerBase
             //BadRequest("User not found");
             //Add the user to the database
             var res = await _userTokenRepository.AddAsync(new UserToken() { Email = payload.Email, Token = token, ExpirationTimeSeconds = (long)payload.ExpirationTimeSeconds });
+            return Ok("User Saved");
             }
             
-            Console.WriteLine(payload);
-            return Ok(payload);
+          //  Console.WriteLine(payload);
+            return Ok("Valid token");
 
         
 
@@ -130,12 +120,9 @@ public class UserTokenController : ControllerBase
     public async Task<GoogleJsonWebSignature.Payload> VerifyGoogleTokenId(string token)
     {
 
-        try
-        {
+        try {
 
             GoogleJsonWebSignature.Payload payload = await GoogleJsonWebSignature.ValidateAsync(token);
-
-
             return payload;
         }
         catch (System.Exception)

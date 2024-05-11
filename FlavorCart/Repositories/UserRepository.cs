@@ -26,28 +26,18 @@ namespace FlavorCart.Repositories
 
         public async Task<List<User>> QueryRecordsAsync(Query query) => await _repository.QueryRecordsAsync<User>(query);
 
-        // This is specific to users.
-        /*
-        public async Task<List<User>> GetUserWhereCity(string cityName)
+        public async Task<List<User>> GetUserByEmailAsync(User entity) 
         {
-            var cities = new List<City>()
-        {
-            new()
-            {
-                Name=cityName
-            }
-        };
-
-            var query = _repository._firestoreDb.Collection(Collection.Users.ToString()).WhereIn(nameof(User.CityFrom), cities);
+            var query = _repository._firestoreDb.Collection("Users").WhereEqualTo("Email", entity.Email);
             return await this.QueryRecordsAsync(query);
+         
         }
-        */
+        public async Task<User> UpdateByEmailAsync(User entity)
+        {
+            var query = _repository._firestoreDb.Collection("Users").WhereEqualTo("Email", entity.Email);
+            var user = await this.QueryRecordsAsync(query);
+            //
+            return await _repository.UpdateAsync(user[0]);
+        }
     }
 }
-//TODO IN BACK:
-// Relate users with google users (Maybe not in front)
-// Add surname2 to user? Not sure about that
-// delete password from user
-
-// GET user by GoogleId or Login using google token
-// add languaje to user

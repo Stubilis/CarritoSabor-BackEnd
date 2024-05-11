@@ -19,34 +19,29 @@ public class UserFirestoreController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet]
-    public async Task<ActionResult<List<User>>> GetAllUsersAsync()
-    {
-        return Ok(await _userRepository.GetAllAsync());
-    }
 
     [HttpGet]
-    [Route("{id}")]
-    public async Task<ActionResult<User>> GetUserAsync(string id)
+    [Route("{email}")]
+    public async Task<ActionResult<User>> GetUserAsync(string email)
     {
         var user = new User()
         {
-            Id = id
+            Email = email
         };
 
-        return Ok(await _userRepository.GetAsync(user));
+        return Ok(await _userRepository.GetUserByEmailAsync(user));
     }
 
     [HttpPut]
-    [Route("{id}")]
-    public async Task<ActionResult<User>> UpdateUserAsync(string id, User user)
+    [Route("{email}")]
+    public async Task<ActionResult<User>> UpdateUserAsync(string email, User user)
     {
-        if (id != user.Id)
+        if (email != user.Email)
         {
-            return BadRequest("Id must match.");
+            return BadRequest("Email must match.");
         }
 
-        return Ok(await _userRepository.UpdateAsync(user));
+        return Ok(await _userRepository.UpdateByEmailAsync(user));
     }
 
     [HttpDelete]
@@ -69,13 +64,6 @@ public class UserFirestoreController : ControllerBase
     {
         return Ok(await _userRepository.AddAsync(user));
     }
-    /*
-    [HttpGet]
-    [Route("city/{city}")]
-    public async Task<ActionResult<User>> GetUserWhereCity(string city)
-    {
-        return Ok(await _userRepository.GetUserWhereCity(city));
-    }
-    */
+  
 
 }
