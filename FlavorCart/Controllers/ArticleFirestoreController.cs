@@ -10,8 +10,9 @@ namespace Firestore.Controllers;
 public class ArticleFirestoreController : ControllerBase
 {
     private readonly ILogger<UserFirestoreController> _logger;
- 
+
     private readonly ArticleRepository _articleRepository = new();
+    private PriceRepository _priceRepository = new();
     private UserTokenController _usertokenFirestoreController;
 
     public ArticleFirestoreController(ILogger<UserFirestoreController> logger)
@@ -27,17 +28,17 @@ public class ArticleFirestoreController : ControllerBase
         {
             //Before returning the data, we need to verify the token
             var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
-        if (ok != null)
-        {
-            return Ok(await _articleRepository.GetAllAsync());
-           
-        }
+            if (ok != null)
+            {
+                return Ok(await _articleRepository.GetAllAsync());
+
+            }
         }
         catch (Exception e)
         {
             return BadRequest("Missing token");
         }
-        
+
         return BadRequest("No token found");
     }
 
@@ -50,15 +51,15 @@ public class ArticleFirestoreController : ControllerBase
             //Before returning the data, we need to verify the token
             var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
         if (ok != null)
+         {
+        var article = new Article()
         {
-            var article = new Article()
-            {
-                Id = id
-            };
+            Id = id
+        };
 
-            return Ok(await _articleRepository.GetAsync(article));
+        return Ok(await _articleRepository.GetAsync(article));
         }
-        }
+    } 
         catch (Exception e)
         {
             return BadRequest("Missing token");
@@ -70,16 +71,16 @@ public class ArticleFirestoreController : ControllerBase
     [Route("{id}")]
     public async Task<ActionResult<User>> UpdateArticleAsync(string id, Article article)
     {
-        try { 
-        var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
+        try{
+            var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
         if (ok != null)
         {
             if (id != article.Id)
-        {
-            return BadRequest("Id must match.");
-        }
+            {
+                return BadRequest("Id must match.");
+            }
 
-        return Ok(await _articleRepository.UpdateAsync(article));
+            return Ok(await _articleRepository.UpdateAsync(article));
         }
         }
         catch (Exception e)
@@ -91,27 +92,36 @@ public class ArticleFirestoreController : ControllerBase
 
     [HttpDelete]
     [Route("{id}")]
-    public async Task<ActionResult> DeleteArticleAsync(string id, Article article)
+    public async Task<ActionResult> DeleteArticleAsync(string id)
+
     {
-        try { 
-        var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
-        if (ok != null)
+        try
         {
-            if (id != article.Id)
-        {
-            return BadRequest("Id must match.");
-        }
+            var article = new Article()
+            {
+                Id = id
+            };
+            //Before returning the data, we need to verify the token
+            var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
+            if (ok != null)
+            {
+                if (id != article.Id)
+                {
+                    return BadRequest("Id must match.");
+                }
 
-        await _articleRepository.DeleteAsync(article);
+                await _articleRepository.DeleteAsync(article);
+                // añadir eliminar el precio de la lista de precios con el id de articulo
+                await _priceRepository.DeletePricesByArticle(article.Id);
 
-        return Ok();
-        }
+                return Ok();
+            }
         }
         catch (Exception e)
         {
             return BadRequest("Missing token");
         }
-        return BadRequest("Invalid token");
+          return BadRequest("Invalid token");
     }
 
 
@@ -132,13 +142,13 @@ public class ArticleFirestoreController : ControllerBase
         }
         return BadRequest("Invalid token");
     }
-    
+
     [HttpGet]
     [Route("category/{category}")]
     public async Task<ActionResult<Article>> GetArticleByCategory(string category)
     {
-        try { 
-        var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
+        try {
+            var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
             if (ok != null)
             {
                 return Ok(await _articleRepository.GetArticleByCategory(category));
@@ -148,9 +158,9 @@ public class ArticleFirestoreController : ControllerBase
         {
             return BadRequest("Missing found");
         }
-       
-            return BadRequest("Invalid token");
-        }
 
-   
+        return BadRequest("Invalid token");
+    }
+
+
 }
