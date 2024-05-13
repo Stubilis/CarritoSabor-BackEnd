@@ -45,8 +45,10 @@ public class ArticleFirestoreController : ControllerBase
     [Route("{id}")]
     public async Task<ActionResult<Article>> GetArticlesAsync(string id)
     {
-        //Before returning the data, we need to verify the token
-        var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
+        try
+        {
+            //Before returning the data, we need to verify the token
+            var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
         if (ok != null)
         {
             var article = new Article()
@@ -56,6 +58,11 @@ public class ArticleFirestoreController : ControllerBase
 
             return Ok(await _articleRepository.GetAsync(article));
         }
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Missing token");
+        }
         return BadRequest("Invalid token");
     }
 
@@ -63,6 +70,7 @@ public class ArticleFirestoreController : ControllerBase
     [Route("{id}")]
     public async Task<ActionResult<User>> UpdateArticleAsync(string id, Article article)
     {
+        try { 
         var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
         if (ok != null)
         {
@@ -73,6 +81,11 @@ public class ArticleFirestoreController : ControllerBase
 
         return Ok(await _articleRepository.UpdateAsync(article));
         }
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Missing token");
+        }
         return BadRequest("Invalid token");
     }
 
@@ -80,6 +93,7 @@ public class ArticleFirestoreController : ControllerBase
     [Route("{id}")]
     public async Task<ActionResult> DeleteArticleAsync(string id, Article article)
     {
+        try { 
         var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
         if (ok != null)
         {
@@ -91,6 +105,11 @@ public class ArticleFirestoreController : ControllerBase
         await _articleRepository.DeleteAsync(article);
 
         return Ok();
+        }
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Missing token");
         }
         return BadRequest("Invalid token");
     }
@@ -127,7 +146,7 @@ public class ArticleFirestoreController : ControllerBase
         }
         catch (Exception e)
         {
-            return BadRequest("No token found");
+            return BadRequest("Missing found");
         }
        
             return BadRequest("Invalid token");
