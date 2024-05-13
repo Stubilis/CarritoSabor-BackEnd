@@ -2,6 +2,7 @@
 using FlavorCart.Enums;
 
 using Google.Cloud.Firestore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FlavorCart.Repositories
 {
@@ -26,12 +27,15 @@ namespace FlavorCart.Repositories
 
         public async Task<List<User>> QueryRecordsAsync(Query query) => await _repository.QueryRecordsAsync<User>(query);
 
-        public async Task<List<User>> GetUserByEmailAsync(User entity) 
+        public async Task<User> GetUserByEmailAsync(User entity)
         {
             var query = _repository._firestoreDb.Collection("Users").WhereEqualTo("Email", entity.Email);
-            return await this.QueryRecordsAsync(query);
-         
+
+            var users = await QueryRecordsAsync(query);
+
+            return users.FirstOrDefault();
         }
+
         public async Task<User> UpdateByEmailAsync(User entity)
         {
             var query = _repository._firestoreDb.Collection("Users").WhereEqualTo("Email", entity.Email);
