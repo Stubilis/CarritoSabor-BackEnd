@@ -95,10 +95,10 @@ public class ListsFirestoreController : ControllerBase
             var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
             if (ok != null)
             {
-                if (id != lists.Id)
-                {
-                    return BadRequest("Id must match.");
-                }
+               Lists lists = new Lists()
+               {
+                    Id = id
+                };
 
                 await _listsRepository.DeleteAsync(lists);
 
