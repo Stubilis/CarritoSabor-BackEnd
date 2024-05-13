@@ -69,16 +69,16 @@ public class CategoryFirestoreController : ControllerBase
 
     [HttpDelete]
     [Route("{id}")]
-    public async Task<ActionResult> DeleteCategoryAsync(string id, Category category)
+    public async Task<ActionResult> DeleteCategoryAsync(string id)
     {
         // Before returning the data, we need to verify the token
         var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
         if (ok != null)
         {
-            if (id != category.Id)
-            {
+          Category category = new Category();
+            category.Id = id;
                 return BadRequest("Id must match.");
-            }
+            
 
             await _categoryRepository.DeleteAsync(category);
 

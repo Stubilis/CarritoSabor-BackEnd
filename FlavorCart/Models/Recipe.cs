@@ -1,5 +1,6 @@
 ﻿using FlavorCart.Interfaces;
 using Google.Cloud.Firestore;
+using System.Security.Policy;
 
 namespace FlavorCart.Models
 {
@@ -20,5 +21,8 @@ namespace FlavorCart.Models
 
         [FirestoreProperty]
         public bool IsRecipe { get ; set ; } = true;
+
+        [FirestoreProperty]
+        public string Description { get; set; } 
     }
 }
