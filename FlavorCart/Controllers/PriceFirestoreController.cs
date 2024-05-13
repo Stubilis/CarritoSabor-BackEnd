@@ -49,12 +49,12 @@ public class PriceFirestoreController : ControllerBase
 
     [HttpDelete]
     [Route("{id}")]
-    public async Task<ActionResult> DeletePriceAsync(string id, Price price)
+    public async Task<ActionResult> DeletePriceAsync(string id)
     {
-        if (id != price.Id)
+        Price price = new Price()
         {
-            return BadRequest("Id must match.");
-        }
+            Id = id
+        };
 
         await _priceRepository.DeleteAsync(price);
 
@@ -75,13 +75,6 @@ public class PriceFirestoreController : ControllerBase
     {
         return Ok(await _priceRepository.GetPriceByArticle(article));
     }
-    /*
-    [HttpGet]
-    [Route("city/{city}")]
-    public async Task<ActionResult<User>> GetUserWhereCity(string city)
-    {
-        return Ok(await _userRepository.GetUserWhereCity(city));
-    }
-    */
+  
 
 }

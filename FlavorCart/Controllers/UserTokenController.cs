@@ -52,12 +52,12 @@ public class UserTokenController : ControllerBase
 
     [HttpDelete]
     [Route("{email}")]
-    public async Task<ActionResult> DeleteUserAsync(string email, UserToken user)
+    public async Task<ActionResult> DeleteUserAsync(string email)
     {
-        if (email != user.Email)
+        UserToken user = new UserToken()
         {
-            return BadRequest("Email must match.");
-        }
+            Email = email
+        };
 
         await _userTokenRepository.DeleteAsync(user);
 

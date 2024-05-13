@@ -46,12 +46,12 @@ public class UserFirestoreController : ControllerBase
 
     [HttpDelete]
     [Route("{id}")]
-    public async Task<ActionResult> DeleteUserAsync(string id, User user)
+    public async Task<ActionResult> DeleteUserAsync(string id)
     {
-        if (id != user.Id)
-        {
-            return BadRequest("Id must match.");
-        }
+       User user = new User()
+       {
+            Id = id
+        };
 
         await _userRepository.DeleteAsync(user);
 
