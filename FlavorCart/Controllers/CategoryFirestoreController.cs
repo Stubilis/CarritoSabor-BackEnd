@@ -77,12 +77,11 @@ public class CategoryFirestoreController : ControllerBase
         {
           Category category = new Category();
             category.Id = id;
-                return BadRequest("Id must match.");
-            
+                         
 
             await _categoryRepository.DeleteAsync(category);
 
-            return Ok();
+            return Ok("Deleted");
         }
         return BadRequest("Invalid token");
     }

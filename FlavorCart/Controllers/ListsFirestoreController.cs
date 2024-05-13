@@ -40,6 +40,7 @@ public class ListsFirestoreController : ControllerBase
     [Route("{id}")]
     public async Task<ActionResult<Lists>> GetListsAsync(string id)
     {
+
         try
         {
             var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
@@ -102,7 +103,7 @@ public class ListsFirestoreController : ControllerBase
 
                 await _listsRepository.DeleteAsync(lists);
 
-                return Ok();
+                return Ok("Deleted");
             }
         }
         catch (Exception e)

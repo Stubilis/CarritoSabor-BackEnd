@@ -58,7 +58,7 @@ public class PriceFirestoreController : ControllerBase
 
         await _priceRepository.DeleteAsync(price);
 
-        return Ok();
+        return Ok("Deleted");
     }
 
 

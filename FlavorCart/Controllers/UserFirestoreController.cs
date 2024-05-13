@@ -55,7 +55,7 @@ public class UserFirestoreController : ControllerBase
 
         await _userRepository.DeleteAsync(user);
 
-        return Ok();
+        return Ok("Deleted");
     }
 
 

@@ -61,7 +61,7 @@ public class UserTokenController : ControllerBase
 
         await _userTokenRepository.DeleteAsync(user);
 
-        return Ok();
+        return Ok("Deleted");
     }
 
 

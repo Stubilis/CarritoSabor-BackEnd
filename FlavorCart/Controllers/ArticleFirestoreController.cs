@@ -114,7 +114,7 @@ public class ArticleFirestoreController : ControllerBase
                 // añadir eliminar el precio de la lista de precios con el id de articulo
                 await _priceRepository.DeletePricesByArticle(article.Id);
 
-                return Ok();
+                return Ok("Deleted");
             }
         }
         catch (Exception e)
