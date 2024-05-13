@@ -37,6 +37,7 @@ namespace FlavorCart.Models
         //constructor
         public Lists()
         {
+            if (this.CreationDate == "")
             setCreationDate();
         }
     }

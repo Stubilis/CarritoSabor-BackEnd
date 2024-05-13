@@ -28,20 +28,13 @@ namespace FlavorCart.Repositories
 
         // This is specific to Lists.
         
-        public async Task<List<Lists>> GetListByUser(string userId)
+        public async Task<List<Lists>> GetListsByUser(string userId)
         {
-            var user = new List<User>()
-        {
-            new()
-            {
-                Id=userId
-            }
-        };
-
-            var query = _repository._firestoreDb.Collection(Collection.Lists.ToString()).WhereIn(nameof(Lists.UserId), user);
-            return await this.QueryRecordsAsync(query);
+             var query = _repository._firestoreDb.Collection(Collection.Lists.ToString())
+                .WhereEqualTo("UserId", userId);
+             return await this.QueryRecordsAsync(query);
         }
-        
+           
         
     }
 }

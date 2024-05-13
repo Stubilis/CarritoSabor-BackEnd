@@ -70,9 +70,9 @@ public class ListsFirestoreController : ControllerBase
     
     [HttpGet]
     [Route("user/{user}")]
-    public async Task<ActionResult<User>> GetListByUser(string user)
+    public async Task<ActionResult<Lists>> GetListsByUser(string user)
     {
-        return Ok(await _listsRepository.GetListByUser(user));
+        return Ok(await _listsRepository.GetListsByUser(user));
     }
     
 
