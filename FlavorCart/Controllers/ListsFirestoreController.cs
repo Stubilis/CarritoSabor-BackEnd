@@ -63,17 +63,16 @@ public class ListsFirestoreController : ControllerBase
 
     [HttpPut]
     [Route("{id}")]
-    public async Task<ActionResult<User>> UpdateListsAsync(string id, Lists lists)
+    public async Task<ActionResult<User>> UpdateListsAsync(string id)
     {
         try
         {
             var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
             if (ok != null)
             {
-                if (id != lists.Id)
-                {
-                    return BadRequest("Id must match.");
-                }
+                Lists lists = new Lists();
+                lists.Id = id;
+                
 
                 return Ok(await _listsRepository.UpdateAsync(lists));
             }
@@ -87,17 +86,15 @@ public class ListsFirestoreController : ControllerBase
 
     [HttpDelete]
     [Route("{id}")]
-    public async Task<ActionResult> DeleteListsAsync(string id, Lists lists)
+    public async Task<ActionResult> DeleteListsAsync(string id)
     {
         try
         {
             var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
             if (ok != null)
             {
-                if (id != lists.Id)
-                {
-                    return BadRequest("Id must match.");
-                }
+                Lists lists = new Lists();
+                lists.Id = id;
 
                 await _listsRepository.DeleteAsync(lists);
 
