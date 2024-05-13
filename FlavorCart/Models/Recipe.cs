@@ -17,5 +17,8 @@ namespace FlavorCart.Models
     
         [FirestoreProperty]
         public float TotalPrize { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        [FirestoreProperty]
+        public bool IsRecipe { get ; set ; } = true;
     }
 }
