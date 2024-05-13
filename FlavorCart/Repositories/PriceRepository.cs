@@ -20,9 +20,11 @@ namespace FlavorCart.Repositories
         public async Task<List<Price>> GetAllAsync() => await _repository.GetAllAsync<Price>();
 
         public async Task<Price?> GetAsync(Price entity) => (Price?)await _repository.GetAsync(entity);
-        public async Task<Price> AddAsync(Price entity) { await _repository.AddAsync(entity); 
-        //When a price is added, the average price of the article is updated
-        await UpdateAvgPriceAsync(entity);
+        public async Task<Price> AddAsync(Price entity)
+        {
+            await _repository.AddAsync(entity);
+            //When a price is added, the average price of the article is updated
+            await UpdateAvgPriceAsync(entity);
             return entity;
         }
 
@@ -31,7 +33,7 @@ namespace FlavorCart.Repositories
         public async Task<Price> UpdateAsync(Price entity)
         {
             await UpdateAvgPriceAsync(entity);
-           return await _repository.UpdateAsync(entity);
+            return await _repository.UpdateAsync(entity);
         }
 
         //Update the average price of the article
@@ -41,7 +43,7 @@ namespace FlavorCart.Repositories
             {
                 Id = entity.ArticleId
             };
-           
+
             article = (Article)await _artRepository.GetAsync(article);
             float medium = article.AveragePrice;
             if (medium == 0)
@@ -51,21 +53,21 @@ namespace FlavorCart.Repositories
             else
             {
                 article.AveragePrice = await calcAvgPriceAsync(article.Id);
-               
+
             }
             return await _artRepository.UpdateAsync(article);
-            
+
         }
         public async Task DeleteAsync(Price entity) => await _repository.DeleteAsync(entity);
 
         public async Task<List<Price>> QueryRecordsAsync(Google.Cloud.Firestore.Query query) => await _repository.QueryRecordsAsync<Price>(query);
 
         // This is specific to Price.
-        
+
         public async Task<List<Price>> GetPriceByArticle(string articleId)
         {
- 
-            var query = _repository._firestoreDb.Collection("Prices").WhereEqualTo("ArticleId",articleId);
+
+            var query = _repository._firestoreDb.Collection("Prices").WhereEqualTo("ArticleId", articleId);
             return await this.QueryRecordsAsync(query);
         }
         public async Task<float> calcAvgPriceAsync(string articleId)
@@ -77,9 +79,22 @@ namespace FlavorCart.Repositories
             {
                 sum += price.Cost;
             }
-            Console.WriteLine("Sum: " + sum +"/"+prices.Count);
+            Console.WriteLine("Sum: " + sum + "/" + prices.Count);
             float avg = sum / prices.Count;
             return avg;
         }
+        //borrar los precios de la lista asociados a idArticulo
+        public async Task DeletePricesByArticle(string articleId)
+        {
+            var query = _repository._firestoreDb.Collection("Prices").WhereEqualTo("ArticleId", articleId);
+            var prices = await this.QueryRecordsAsync(query);
+            foreach (Price price in prices)
+            {
+                await this.DeleteAsync(price);
+            }
+        }
+        //borrar los precios de la lista asociados a idArticulo
     }
+
+
 }
