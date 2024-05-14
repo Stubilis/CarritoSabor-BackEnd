@@ -34,6 +34,7 @@ namespace FlavorCart.Repositories
             var users = await QueryRecordsAsync(query);
 
             return users.FirstOrDefault();
+           //return users[0];
         }
 
         public async Task<User> UpdateByEmailAsync(User entity)

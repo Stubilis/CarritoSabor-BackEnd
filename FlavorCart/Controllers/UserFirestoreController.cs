@@ -26,12 +26,13 @@ public class UserFirestoreController : ControllerBase
     [Route("{email}")]
     public async Task<ActionResult<User>> GetUserAsync(string email)
     {
-        try
-        {
+      /*  try
+        {*/
+            /*
             //Before returning the data, we need to verify the token
             var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
             if (ok != null)
-            {
+            {*/
 
                 var user = new User()
                 {
@@ -39,13 +40,14 @@ public class UserFirestoreController : ControllerBase
                 };
 
                 return Ok(await _userRepository.GetUserByEmailAsync(user));
+            /*
             }
         }
         catch (Exception ex)
         {
             return BadRequest("Missing token");
         }
-        return BadRequest("error");
+        return BadRequest("error");*/
            
     }
 

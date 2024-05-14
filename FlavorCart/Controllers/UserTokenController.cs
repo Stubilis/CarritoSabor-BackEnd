@@ -131,23 +131,19 @@ public class UserTokenController : ControllerBase
 
 
             var result = await _userRepository.GetUserByEmailAsync(user);
-            if (result.Count > 0)
+            if (result.Email.Equals(user.Email) )
             {
                 return Ok("User exists");
             }
-            else
-            {
-                   await _userRepository.AddAsync(user);
-                return Ok("User saved");
             
-            }
         }
-        catch (Exception)
+        catch (NullReferenceException)
         {
             await _userRepository.AddAsync(user);
             return Ok("User saved");
         }
-        return BadRequest("User not found");
+        return BadRequest("Error");
+       
     }
     
 
