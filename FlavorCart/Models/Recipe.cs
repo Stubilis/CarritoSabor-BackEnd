@@ -5,10 +5,10 @@ using System.Security.Policy;
 namespace FlavorCart.Models
 {
     [FirestoreData]
-    public class Recipe : iList
+    public class Recipe : iList , IBaseFirestoreData
     {
         
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         [FirestoreProperty]
         public List<ListItem> ArticleList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         [FirestoreProperty]
