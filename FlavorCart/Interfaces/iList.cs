@@ -10,7 +10,7 @@ namespace FlavorCart.Interfaces
         
         string UserId { get; set; }
      
-        float TotalPrize { get; set; }
+        float TotalPrice { get; set; }
 
 
        
