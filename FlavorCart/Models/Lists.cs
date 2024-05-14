@@ -22,7 +22,7 @@ namespace FlavorCart.Models
         public string UserId { get; set; }
 
         [FirestoreProperty]
-        public string CreationDate { get;private set; }
+        public string CreationDate { get; set; }
 
         [FirestoreProperty]
         public bool IsPublic { get; set; }
