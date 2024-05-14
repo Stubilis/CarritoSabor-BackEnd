@@ -13,10 +13,12 @@ public class UserFirestoreController : ControllerBase
     private readonly ILogger<UserFirestoreController> _logger;
     // This should be injected - This is only an example
     private readonly UserRepository _userRepository = new();
+    private UserTokenController _usertokenFirestoreController;
 
     public UserFirestoreController(ILogger<UserFirestoreController> logger)
     {
         _logger = logger;
+        _usertokenFirestoreController = new UserTokenController(_logger);
     }
 
 
@@ -24,12 +26,27 @@ public class UserFirestoreController : ControllerBase
     [Route("{email}")]
     public async Task<ActionResult<User>> GetUserAsync(string email)
     {
-        var user = new User()
+        try
         {
-            Email = email
-        };
+            //Before returning the data, we need to verify the token
+            var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
+            if (ok != null)
+            {
 
-        return Ok(await _userRepository.GetUserByEmailAsync(user));
+                var user = new User()
+                {
+                    Email = email
+                };
+
+                return Ok(await _userRepository.GetUserByEmailAsync(user));
+            }
+        }
+        catch (Exception ex)
+        {
+            return BadRequest("Missing token");
+        }
+        return BadRequest("error");
+           
     }
 
     [HttpPut]

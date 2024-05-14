@@ -122,6 +122,7 @@ public class ListsFirestoreController : ControllerBase
             var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
             if (ok != null)
             {
+                lists.setCreationDate();
                 return Ok(await _listsRepository.AddAsync(lists));
             }
         }

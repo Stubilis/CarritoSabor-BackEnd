@@ -26,20 +26,14 @@ namespace FlavorCart.Models
 
         [FirestoreProperty]
         public bool IsPublic { get; set; }
-        private void setCreationDate()
+        public void setCreationDate()
         {
-            DateTime localDate = DateTime.Now;
-            //Get user language and set the date format
-
-            this.CreationDate = localDate.ToString(new CultureInfo("en-US"));
+          
+            this.CreationDate = DateTime.Now.ToString();
 
         }
-        //constructor
-        public Lists()
-        {
-           
-            setCreationDate();
-        }
+     
+        
     }
 
 }

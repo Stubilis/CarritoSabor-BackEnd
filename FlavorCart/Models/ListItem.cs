@@ -13,9 +13,8 @@ namespace FlavorCart.Models
         public string ArticleId { get; set; }
         
         [FirestoreProperty]
-        public int Amount { get; set; } = 0;
-
+        public int Amount { get; set; } 
         [FirestoreProperty]
-        public string Unit { get; set; } = "Unidades"; // Unit of measure for the quantity of articles
+        public string Unit { get; set; }  // Unit of measure for the quantity of articles
     }
 }

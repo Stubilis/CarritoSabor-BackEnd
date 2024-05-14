@@ -21,20 +21,15 @@ namespace FlavorCart.Models
         public string Shop { get; set; }
        
 
-        private void setPriceDate()
+        public void setPriceDate()
         {
            this.PriceDate =  DateTime.Now.ToString();
 
         }
 
 
-        //Constructor  
-            public Price()
-            {
-            setPriceDate();
-            updateMediumPrice(this.ArticleId);
-            }
-        private void updateMediumPrice (string artId)
+       
+        public void updateMediumPrice (string artId)
         {
 
 
