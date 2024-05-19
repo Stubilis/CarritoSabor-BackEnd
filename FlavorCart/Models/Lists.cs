@@ -5,7 +5,7 @@ using System.Globalization;
 namespace FlavorCart.Models
 {
     [FirestoreData]
-    public class Lists : iList, IBaseFirestoreData
+    public class Lists : IList, IBaseFirestoreData
     {
 
         public string Id { get; set; }
