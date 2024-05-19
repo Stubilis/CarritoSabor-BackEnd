@@ -5,7 +5,7 @@ using System.Security.Policy;
 namespace FlavorCart.Models
 {
     [FirestoreData]
-    public class Recipe : iList , IBaseFirestoreData
+    public class Recipe : IList , IBaseFirestoreData
     {
         
         public string Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
