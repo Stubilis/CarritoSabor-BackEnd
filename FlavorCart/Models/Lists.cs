@@ -7,6 +7,7 @@ namespace FlavorCart.Models
     [FirestoreData]
     public class Lists : iList, IBaseFirestoreData
     {
+
         public string Id { get; set; }
 
         [FirestoreProperty]

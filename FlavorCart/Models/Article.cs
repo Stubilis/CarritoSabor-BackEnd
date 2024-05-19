@@ -50,12 +50,7 @@ namespace FlavorCart.Models
         [FirestoreProperty]
         public float AveragePrice { get; set; } 
 
-     //   [FirestoreProperty]
-     //   public int Quantity { get; set; } = 0; //Amount of articles 
-
-     //   [FirestoreProperty]
-     //   public string Unit { get; set; } = ""; // Unit of measure for the quantity of articles
-        
+     
         //Set the name with the first letter in uppercase
         public void SetName(string name)
         {

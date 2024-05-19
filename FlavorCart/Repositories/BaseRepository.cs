@@ -19,7 +19,6 @@ namespace FlavorCart.Repositories
             {
                 // This should live in the appsetting file and injected - This is just an example.
                 _collection = collection;
-            // var filepath = @"C:\Users\Estíbaliz\Downloads\flavorcart-b4372-firebase-adminsdk-rhygj-2d24944b27.json";
                 var filepath = Environment.ExpandEnvironmentVariables("%USERPROFILE%\\Downloads\\flavorcart-b4372-firebase-adminsdk-rhygj-2d24944b27.json");
                 Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", filepath);
                 _firestoreDb = FirestoreDb.Create("flavorcart-b4372");
@@ -64,9 +63,8 @@ namespace FlavorCart.Repositories
             {
                 var colRef = _firestoreDb.Collection(_collection.ToString());
                 var doc = await colRef.AddAsync(entity);
-                // GO GET RECORD FROM DATABASE:
-                // return (T) await GetAsync(entity); 
-                return entity;
+                entity.Id = doc.Id;
+                 return entity;
             }
 
             /// <inheritdoc />
@@ -74,9 +72,9 @@ namespace FlavorCart.Repositories
             {
                 var recordRef = _firestoreDb.Collection(_collection.ToString()).Document(entity.Id);
                 await recordRef.SetAsync(entity, SetOptions.MergeAll);
-                // GO GET RECORD FROM DATABASE:
-                // return (T)await GetAsync(entity);
-                return entity;
+                // Return the updated record
+                return (T)await GetAsync(entity);
+               
             }
 
             /// <inheritdoc />
