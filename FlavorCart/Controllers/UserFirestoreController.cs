@@ -13,6 +13,7 @@ public class UserFirestoreController : ControllerBase
     private readonly ILogger<UserFirestoreController> _logger;
     // This should be injected - This is only an example
     private readonly UserRepository _userRepository = new();
+    private ListsRepository _listsRepository = new();
     private UserTokenController _usertokenFirestoreController;
 
     public UserFirestoreController(ILogger<UserFirestoreController> logger)
@@ -64,15 +65,18 @@ public class UserFirestoreController : ControllerBase
 
     [HttpDelete]
     [Route("{id}")]
-    public async Task<ActionResult> DeleteUserAsync(string id)
+    public async Task<ActionResult> DeleteUserAsync(string id, [FromQuery] bool eliminarTodasLasListas)
     {
        User user = new User()
        {
             Id = id
         };
 
+        //Delete all lists from user
+        await _listsRepository.DeleteListByUser(id, eliminarTodasLasListas);
+        //Delete all lists from user
         await _userRepository.DeleteAsync(user);
-
+        
         return Ok("Deleted");
     }
 

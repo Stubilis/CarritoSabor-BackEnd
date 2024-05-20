@@ -34,7 +34,21 @@ namespace FlavorCart.Repositories
                 .WhereEqualTo("UserId", userId);
              return await this.QueryRecordsAsync(query);
         }
-           
-        
+        // metodo para borrar una lista vinculada al id de usuario, controlar si la lista es publica o no
+        public async Task DeleteListByUser(string userId, bool eliminarTodasLasListas)
+        {
+            var query = _repository._firestoreDb.Collection(Collection.Lists.ToString())
+                .WhereEqualTo("UserId", userId);
+            if (!eliminarTodasLasListas)
+            {
+                query = query.WhereEqualTo("IsPublic", false);
+            }
+            var lists = await this.QueryRecordsAsync(query);
+            foreach (var list in lists)
+            {
+                await this.DeleteAsync(list);
+            }
+        }
+
     }
 }
