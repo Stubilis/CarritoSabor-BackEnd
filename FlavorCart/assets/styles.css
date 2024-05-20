@@ -1,6 +1,6 @@
 ﻿.header {
     text-align: center;
-    color: green;
+    color: rgb(92, 192, 59);
     padding-bottom: 35px;
 }
 
@@ -17,6 +17,27 @@ td, th {
 }
 
 table th {
-    background-color: green;
+    background-color: rgb(92, 192, 59);
     color: white;
 }
+h1 {
+    color: rgb(92, 192, 59);
+    font-size: 40px;
+    text-align: center;
+    padding-top: 20px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+h2 {
+    color: rgb(92, 192, 59);
+    font-size: 30px;
+    text-align: center;
+    padding-top: 20px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+p {
+   
+    text-align: center;
+    padding-top: 20px;
+   
+}
+```

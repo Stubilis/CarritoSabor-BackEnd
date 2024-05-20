@@ -8,16 +8,16 @@ namespace FlavorCart.Models
     public class Recipe : IList , IBaseFirestoreData
     {
         
-        public string Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Id { get; set; }
         [FirestoreProperty]
-        public List<ListItem> ArticleList { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public List<ListItem> ArticleList { get ; set ; }
         [FirestoreProperty]
-        public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Name { get ; set ; }
         [FirestoreProperty]
-        public string UserId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string UserId { get ; set ; }
     
         [FirestoreProperty]
-        public float TotalPrice { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public float TotalPrice { get; set ; }
 
         [FirestoreProperty]
         public bool IsRecipe { get ; set ; } = true;
