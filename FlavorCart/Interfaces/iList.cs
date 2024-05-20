@@ -2,7 +2,7 @@
 
 namespace FlavorCart.Interfaces
 {
-    public interface iList
+    public interface IList
     {
       
         

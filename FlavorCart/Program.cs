@@ -1,5 +1,6 @@
 using FirebaseAdmin;
-
+using FlavorCart;
+/*
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -28,5 +29,13 @@ app.UseCors(options => options.WithOrigins(origins).AllowAnyMethod().AllowAnyHea
 app.UseAuthorization();
 
 app.MapControllers();
+*/
+IHostBuilder CreateHostBuilder(string[] args) =>
+           Host.CreateDefaultBuilder(args)
+               .ConfigureWebHostDefaults(webBuilder =>
+               {
+                   webBuilder.UseStartup<Startup>();
+               });
 
-app.Run();
+CreateHostBuilder(args).Build().Run();
+//app.Run();
