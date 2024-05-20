@@ -1,6 +1,7 @@
 ﻿using FlavorCart.Interfaces;
 using Google.Cloud.Firestore;
-using System.Security.Policy;
+using System.Collections;
+using IList = FlavorCart.Interfaces.IList;
 
 namespace FlavorCart.Models
 {

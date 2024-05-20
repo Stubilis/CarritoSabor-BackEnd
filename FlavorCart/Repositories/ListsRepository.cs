@@ -50,5 +50,11 @@ namespace FlavorCart.Repositories
             }
         }
 
+        internal async Task<List<Lists>> GetAllPublicAsync()
+        {
+            var query = _repository._firestoreDb.Collection(Collection.Lists.ToString())
+                .WhereEqualTo("IsPublic", true);
+            return await this.QueryRecordsAsync(query);
+        }
     }
 }

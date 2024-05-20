@@ -19,7 +19,25 @@ public class ListsFirestoreController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Lists>>> GetAllListsAsync()
+    [Route("publicLists")]
+    public async Task<ActionResult<List<Lists>>> GetAllPublicListsAsync()
+    {
+        try
+        {
+            var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
+            if (ok != null)
+            {
+                return Ok(await _listsRepository.GetAllPublicAsync());
+            }
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Missing found");
+        }
+        return BadRequest("Invalid token");
+    }
+    [HttpGet]
+    public async Task<ActionResult<List<Lists>>> GetAllListsPublicAsync()
     {
         try
         {
@@ -35,6 +53,7 @@ public class ListsFirestoreController : ControllerBase
         }
         return BadRequest("Invalid token");
     }
+
 
     [HttpGet]
     [Route("{id}")]
