@@ -74,7 +74,7 @@ public class UserFirestoreController : ControllerBase
 
         //Delete all lists from user
         await _listsRepository.DeleteListByUser(id, eliminarTodasLasListas);
-        //Delete all lists from user
+        //Delete user
         await _userRepository.DeleteAsync(user);
         
         return Ok("Deleted");
