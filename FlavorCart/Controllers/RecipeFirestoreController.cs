@@ -10,7 +10,7 @@ public class RecipeFirestoreController : ControllerBase
 {
     private readonly ILogger<UserFirestoreController> _logger;
     // This should be injected - This is only an example
-    private readonly RecipeRepository _listsRepository = new();
+    private readonly RecipeRepository _recipeRepository = new();
     private UserTokenController _usertokenFirestoreController;
     public RecipeFirestoreController(ILogger<UserFirestoreController> logger)
     {
@@ -26,7 +26,7 @@ public class RecipeFirestoreController : ControllerBase
             var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
             if (ok != null)
             {
-                return Ok(await _listsRepository.GetAllAsync());
+                return Ok(await _recipeRepository.GetAllAsync());
             }
         }
         catch (Exception e)
@@ -51,7 +51,7 @@ public class RecipeFirestoreController : ControllerBase
                     Id = id
                 };
 
-                return Ok(await _listsRepository.GetAsync(recipe));
+                return Ok(await _recipeRepository.GetAsync(recipe));
             }
 
         }
@@ -77,7 +77,7 @@ public class RecipeFirestoreController : ControllerBase
                     return BadRequest("Id must match.");
                 }
 
-                return Ok(await _listsRepository.UpdateAsync(recipe));
+                return Ok(await _recipeRepository.UpdateAsync(recipe));
             }
         }
         catch (Exception e)
@@ -101,7 +101,7 @@ public class RecipeFirestoreController : ControllerBase
                     Id = id
                 };
 
-                await _listsRepository.DeleteAsync(recipe);
+                await _recipeRepository.DeleteAsync(recipe);
 
                 return Ok("Deleted");
             }
@@ -123,7 +123,7 @@ public class RecipeFirestoreController : ControllerBase
             if (ok != null)
             {
                 
-                return Ok(await _listsRepository.AddAsync(recipe));
+                return Ok(await _recipeRepository.AddAsync(recipe));
             }
         }
         catch (Exception e)
@@ -142,7 +142,7 @@ public class RecipeFirestoreController : ControllerBase
             var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
             if (ok != null)
             {
-                return Ok(await _listsRepository.GetRecipeByUser(user));
+                return Ok(await _recipeRepository.GetRecipeByUser(user));
             }
         }
         catch (Exception e)
