@@ -2,6 +2,7 @@
 using FlavorCart.Models;
 using FlavorCart.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 
 namespace Firestore.Controllers;
@@ -133,6 +134,10 @@ public class ArticleFirestoreController : ControllerBase
             var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
             if (ok != null)
             {
+                if (article.Categories.IsNullOrEmpty())
+                {
+                    article.Categories.Add("vmnxxvN628gfp4WVbgM9");
+                }
                 return Ok(await _articleRepository.AddAsync(article));
             }
         }

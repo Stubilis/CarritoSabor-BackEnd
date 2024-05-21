@@ -45,7 +45,7 @@ namespace FlavorCart.Models
         }
 
         [FirestoreProperty]
-        public string[] Categories { get; set; } = { string.Empty };//Save here the categories id
+        public List<string> Categories { get; set; } //Save here the categories id
 
         [FirestoreProperty]
         public float AveragePrice { get; set; } 
