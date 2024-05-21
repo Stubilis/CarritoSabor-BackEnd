@@ -9,63 +9,134 @@ namespace Firestore.Controllers;
 public class PriceFirestoreController : ControllerBase
 {
     private readonly ILogger<UserFirestoreController> _logger;
-    // This should be injected - This is only an example
+    
     private readonly PriceRepository _priceRepository = new();
+    private UserTokenController _usertokenFirestoreController;
 
     public PriceFirestoreController(ILogger<UserFirestoreController> logger)
     {
         _logger = logger;
+        _usertokenFirestoreController = new UserTokenController(_logger);
     }
 
     [HttpGet]
     public async Task<ActionResult<List<Price>>> GetAllPricesAsync()
     {
-        return Ok(await _priceRepository.GetAllAsync());
+        try
+        {
+            //Before returning the data, we need to verify the token
+            var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
+            if (ok != null)
+            {
+                return Ok(await _priceRepository.GetAllAsync());
+            }
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Missing token");
+        }
+        return BadRequest("Invalid token");
     }
 
     [HttpGet]
     [Route("{id}")]
     public async Task<ActionResult<Price>> GetPriceAsync(string id)
     {
-        var price = new Price()
+        try
+        {
+            
+            var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
+            if (ok != null)
+            {
+                var price = new Price()
         {
             Id = id
         };
 
         return Ok(await _priceRepository.GetAsync(price));
+            }
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Missing token");
+        }
+        return BadRequest("Invalid token");
     }
 
     [HttpPut]
     [Route("{id}")]
     public async Task<ActionResult<User>> UpdatePriceAsync(string id, Price price)
     {
-        if (id != price.Id)
+        try
+        {
+
+            var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
+            if (ok != null)
+            {
+                if (id != price.Id)
         {
             return BadRequest("Id must match.");
         }
-
-        return Ok(await _priceRepository.UpdateAsync(price));
+        await _priceRepository.UpdateAsync(price);
+        await _priceRepository.calcAvgPriceAsync(price.ArticleId);
+        return Ok(price);
+    }
+}
+        catch (Exception e)
+        {
+            return BadRequest("Missing token");
+        }
+        return BadRequest("Invalid token");
     }
 
     [HttpDelete]
     [Route("{id}")]
     public async Task<ActionResult> DeletePriceAsync(string id)
     {
-        Price price = new Price()
+        try
+        {
+
+            var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
+            if (ok != null)
+            {
+                Price price = new Price()
         {
             Id = id
         };
 
         await _priceRepository.DeleteAsync(price);
-
+        await _priceRepository.calcAvgPriceAsync(price.ArticleId);
         return Ok("Deleted");
+}
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Missing token");
+        }
+        return BadRequest("Invalid token");
     }
 
 
     [HttpPost]
     public async Task<ActionResult<Price>> AddPriceAsync(Price price)
     {
-        return Ok(await _priceRepository.AddAsync(price));
+        try
+        {
+
+            var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
+            if (ok != null)
+            {
+                price.setPriceDate();
+        await _priceRepository.AddAsync(price);
+        await _priceRepository.calcAvgPriceAsync(price.ArticleId);
+        return Ok(price);
+}
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Missing token");
+        }
+        return BadRequest("Invalid token");
     }
 
     //GET prices by article
@@ -73,7 +144,20 @@ public class PriceFirestoreController : ControllerBase
     [Route("article/{article}")]
     public async Task<ActionResult<Price>> GetPriceByArticle(string article)
     {
-        return Ok(await _priceRepository.GetPriceByArticle(article));
+        try
+        {
+
+            var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
+            if (ok != null)
+            {
+                return Ok(await _priceRepository.GetPriceByArticle(article));
+}
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Missing token");
+        }
+        return BadRequest("Invalid token");
     }
   
 
