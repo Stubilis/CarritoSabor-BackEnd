@@ -22,11 +22,18 @@ public class CategoryFirestoreController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<Category>>> GetAllCategoriesAsync()
     {
-        // Before returning the data, we need to verify the token
-        var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
-        if (ok != null)
+        try
         {
-            return Ok(await _categoryRepository.GetAllAsync());
+            // Before returning the data, we need to verify the token
+            var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
+            if (ok != null)
+            {
+                return Ok(await _categoryRepository.GetAllAsync());
+            }
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Missing token");
         }
         return BadRequest("Invalid token");
     }
@@ -35,16 +42,23 @@ public class CategoryFirestoreController : ControllerBase
     [Route("{id}")]
     public async Task<ActionResult<Category>> GetCategoryAsync(string id)
     {
-        // Before returning the data, we need to verify the token
-        var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
-        if (ok != null)
+        try
         {
-            var category = new Category()
+          
+            var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
+            if (ok != null)
             {
-                Id = id
-            };
+                var category = new Category()
+                {
+                    Id = id
+                };
 
-            return Ok(await _categoryRepository.GetAsync(category));
+                return Ok(await _categoryRepository.GetAsync(category));
+            }
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Missing token");
         }
         return BadRequest("Invalid token");
     }
@@ -53,7 +67,8 @@ public class CategoryFirestoreController : ControllerBase
     [Route("{id}")]
     public async Task<ActionResult<User>> UpdateCategoryAsync(string id, Category category)
     {
-        // Before returning the data, we need to verify the token
+        try { 
+      
         var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
         if (ok != null)
         {
@@ -64,6 +79,11 @@ public class CategoryFirestoreController : ControllerBase
 
             return Ok(await _categoryRepository.UpdateAsync(category));
         }
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Missing token");
+        }
         return BadRequest("Invalid token");
     }
 
@@ -71,6 +91,7 @@ public class CategoryFirestoreController : ControllerBase
     [Route("{id}")]
     public async Task<ActionResult> DeleteCategoryAsync(string id)
     {
+        try { 
         // Before returning the data, we need to verify the token
         var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
         if (ok != null)
@@ -83,17 +104,28 @@ public class CategoryFirestoreController : ControllerBase
 
             return Ok("Deleted");
         }
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Missing token");
+        }
         return BadRequest("Invalid token");
     }
 
     [HttpPost]
     public async Task<ActionResult<Category>> AddCategoryAsync(Category category)
     {
+        try { 
         // Before returning the data, we need to verify the token
         var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
         if (ok != null)
         {
             return Ok(await _categoryRepository.AddAsync(category));
+        }
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Missing token");
         }
         return BadRequest("Invalid token");
     }
