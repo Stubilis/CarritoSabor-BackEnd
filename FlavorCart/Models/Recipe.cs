@@ -21,9 +21,6 @@ namespace FlavorCart.Models
         public float TotalPrice { get; set ; }
 
         [FirestoreProperty]
-        public bool IsRecipe { get ; set ; } = true;
-
-        [FirestoreProperty]
         public string Description { get; set; } 
     }
 }
