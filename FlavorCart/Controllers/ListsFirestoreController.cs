@@ -116,10 +116,10 @@ public class ListsFirestoreController : ControllerBase
             var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
             if (ok != null)
             {
-                
-                    Recipe recipe = _recipeRepository.GetAsync(new Recipe() { Id = recipeId }).Result!;
-                
-               
+
+                Recipe recipe = _recipeRepository.GetAsync(new Recipe() { Id = recipeId }).Result!;
+
+
                 //Compare the article list of the recipe with the article list of the list
                 if (recipe != null && recipe.ArticleList.Count > 0)
                 {
@@ -149,7 +149,7 @@ public class ListsFirestoreController : ControllerBase
                             lists.ArticleList.Add(item2);
                         }
                     }
-                                    
+
                 }
                 return Ok(await _listsRepository.UpdateAsync(lists));
             }
@@ -159,8 +159,9 @@ public class ListsFirestoreController : ControllerBase
             return BadRequest("Missing token");
         }
         return BadRequest("Invalid token");
-        
-    }   
+
+    }
+
 
     [HttpDelete]
     [Route("{id}")]

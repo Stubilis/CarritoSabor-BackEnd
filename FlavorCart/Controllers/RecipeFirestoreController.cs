@@ -112,7 +112,32 @@ public class RecipeFirestoreController : ControllerBase
         }
         return BadRequest("Invalid token");
     }
-
+    [HttpPost]
+    [Route("listsToRecipe")]
+    public async Task<ActionResult<Recipe>> AddListsToRecipeAsync(Lists lists, string description )
+    {
+        try
+        {
+            var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
+            if (ok != null)
+            {
+                Recipe recipe = new Recipe()
+                {
+                    ArticleList = lists.ArticleList,
+                    Name = lists.Name,
+                    UserId = lists.UserId,
+                    TotalPrice = lists.TotalPrice,
+                    Description = description
+                };
+                return Ok(await _recipeRepository.AddAsync(recipe));
+            }
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Missing token");
+        }
+        return BadRequest("Invalid token");
+    }   
 
     [HttpPost]
     public async Task<ActionResult<Recipe>> AddRecipeAsync(Recipe recipe)
