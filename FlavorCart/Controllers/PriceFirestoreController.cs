@@ -77,11 +77,9 @@ public class PriceFirestoreController : ControllerBase
         {
             return BadRequest("Id must match.");
         }
-        await _priceRepository.UpdateAsync(price);
-        await _priceRepository.calcAvgPriceAsync(price.ArticleId);
-        return Ok(price);
-    }
-}
+            return Ok(await _priceRepository.UpdateAsync(price));
+            }
+        }
         catch (Exception e)
         {
             return BadRequest("Missing token");
@@ -100,13 +98,14 @@ public class PriceFirestoreController : ControllerBase
             if (ok != null)
             {
                 Price price = new Price()
-        {
-            Id = id
-        };
-
-        await _priceRepository.DeleteAsync(price);
-        await _priceRepository.calcAvgPriceAsync(price.ArticleId);
-        return Ok("Deleted");
+                {
+                    Id = id
+                };
+                //Get the complete data from the price so we can update the articleId
+                price = await _priceRepository.GetAsync(price);
+                await _priceRepository.DeleteAsync(price);
+               
+                return Ok("Deleted");
 }
         }
         catch (Exception e)
@@ -128,7 +127,7 @@ public class PriceFirestoreController : ControllerBase
             {
                 price.setPriceDate();
         await _priceRepository.AddAsync(price);
-        await _priceRepository.calcAvgPriceAsync(price.ArticleId);
+       
         return Ok(price);
 }
         }

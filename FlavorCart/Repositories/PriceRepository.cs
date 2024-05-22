@@ -2,6 +2,7 @@
 using FlavorCart.Enums;
 
 using Google.Cloud.Firestore;
+using static Grpc.Core.Metadata;
 
 
 namespace FlavorCart.Repositories
@@ -24,41 +25,34 @@ namespace FlavorCart.Repositories
         {
             await _repository.AddAsync(entity);
             //When a price is added, the average price of the article is updated
-            await UpdateAvgPriceAsync(entity);
+            await UpdateAvgPriceAsync(entity.ArticleId);
             return entity;
         }
 
-
-
         public async Task<Price> UpdateAsync(Price entity)
         {
-            await UpdateAvgPriceAsync(entity);
+            await UpdateAvgPriceAsync(entity.ArticleId);
             return await _repository.UpdateAsync(entity);
         }
 
         //Update the average price of the article
-        public async Task<Article> UpdateAvgPriceAsync(Price entity)
+        public async Task<Article> UpdateAvgPriceAsync(string ArticleId)
         {
-            Article article = new Article()
+            //Get the article
+            var article = new Article()
             {
-                Id = entity.ArticleId
+                Id = ArticleId
             };
-
             article = (Article)await _artRepository.GetAsync(article);
-            float medium = article.AveragePrice;
-            if (medium == 0)
-            {
-                article.AveragePrice = entity.Cost;
-            }
-            else
-            {
-                article.AveragePrice = await calcAvgPriceAsync(article.Id);
-
-            }
+            //Calculate the average price
+            article.AveragePrice = await calcAvgPriceAsync(ArticleId);
             return await _artRepository.UpdateAsync(article);
-
         }
-        public async Task DeleteAsync(Price entity) => await _repository.DeleteAsync(entity);
+        public async Task DeleteAsync(Price entity) {
+            string articleId = entity.ArticleId;
+            await _repository.DeleteAsync(entity);
+            await UpdateAvgPriceAsync(articleId) ;
+        }
 
         public async Task<List<Price>> QueryRecordsAsync(Google.Cloud.Firestore.Query query) => await _repository.QueryRecordsAsync<Price>(query);
 
@@ -75,6 +69,10 @@ namespace FlavorCart.Repositories
             var query = _repository._firestoreDb.Collection("Prices").WhereEqualTo("ArticleId", articleId);
             var prices = await this.QueryRecordsAsync(query);
             float sum = 0;
+            if (prices.Count == 0)
+            {
+                return 0;
+            }
             foreach (Price price in prices)
             {
                 sum += price.Cost;
@@ -93,7 +91,7 @@ namespace FlavorCart.Repositories
                 await this.DeleteAsync(price);
             }
         }
-        //borrar los precios de la lista asociados a idArticulo
+        
     }
     
 
