@@ -22,45 +22,23 @@ public class CategoryFirestoreController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<Category>>> GetAllCategoriesAsync()
     {
-        try
-        {
-            // Before returning the data, we need to verify the token
-            var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
-            if (ok != null)
-            {
+        
                 return Ok(await _categoryRepository.GetAllAsync());
-            }
-        }
-        catch (Exception e)
-        {
-            return BadRequest("Missing token");
-        }
-        return BadRequest("Invalid token");
+           
     }
 
     [HttpGet]
     [Route("{id}")]
     public async Task<ActionResult<Category>> GetCategoryAsync(string id)
     {
-        try
-        {
-          
-            var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
-            if (ok != null)
-            {
+       
                 var category = new Category()
                 {
                     Id = id
                 };
 
                 return Ok(await _categoryRepository.GetAsync(category));
-            }
-        }
-        catch (Exception e)
-        {
-            return BadRequest("Missing token");
-        }
-        return BadRequest("Invalid token");
+           
     }
 
     [HttpPut]

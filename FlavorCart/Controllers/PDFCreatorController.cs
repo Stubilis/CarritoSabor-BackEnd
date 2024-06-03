@@ -17,6 +17,7 @@ namespace PDF_Generator.Controllers
         private readonly ListsRepository _listsRepository = new();
         private readonly RecipeRepository _recipeRepository = new();
         private readonly ArticleRepository _articleRepository = new();
+        private readonly UserRepository _userRepository = new();
         private UserTokenController _usertokenFirestoreController;
         private readonly ILogger<UserFirestoreController> _logger;
         private IConverter _converter;
@@ -80,6 +81,8 @@ namespace PDF_Generator.Controllers
                     }
                 }
             }
+                //Get the user name 
+                User user = await _userRepository.GetAsync(new User() { Id = _list.UserId });
 
 
             var globalSettings = new GlobalSettings
@@ -95,12 +98,18 @@ namespace PDF_Generator.Controllers
             var objectSettings = new ObjectSettings
             {
                 PagesCount = true,
-                HtmlContent = TemplateGenerator.ListsGetHTMLString(_list, articles, Path.Combine(Directory.GetCurrentDirectory(), "assets", "logo.png")),
+                HtmlContent = TemplateGenerator.ListsGetHTMLString(_list, articles, Path.Combine(Directory.GetCurrentDirectory(), "assets", "logo.png"),user.Nickname ?? ""),
                 WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
                 HeaderSettings = { FontName = "Verdana, Geneva, Tahoma, sans-serif", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
                
-
-                FooterSettings = { FontName = "Verdana, Geneva, Tahoma, sans-serif", FontSize = 9, Line = true, Center = "Carrito de Sabor 2024©" }
+                
+                FooterSettings = 
+                { FontName = "Verdana, Geneva, Tahoma, sans-serif",
+                    FontSize = 9,
+                    Line = true, 
+                    Center = "Carrito de Sabor 2024©",
+                    
+                    }
             };
 
             var pdf = new HtmlToPdfDocument()

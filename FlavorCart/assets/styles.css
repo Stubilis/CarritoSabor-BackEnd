@@ -2,7 +2,7 @@
     text-align: center;
     color: #086922;
     padding-bottom: 35px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: "Verdana, Geneva, Tahoma, sans-serif";
 }
 
     .header h1 {
@@ -14,15 +14,20 @@
 table {
     width: 80%;
     border-collapse: separate;
-    border-spacing: 0;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    align-content:baseline;
+    font-family: "Verdana, Geneva, Tahoma, sans-serif";
 }
 
 td, th {
-    border: 1px solid #086922;
+    border:1px solid #086922;
     padding: 15px;
     font-size: 22px;
     text-align: center;
+}
+.total {
+    font-size: 25px;
+    font-weight: bold;
+    background-color: #c2d2b1;
 }
 /*Round the corners of the last row*/
 tr:last-child > td:first-child {
@@ -50,7 +55,7 @@ h1 {
     font-size: 40px;
     text-align: center;
     padding-top: 20px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+    font-family: "Verdana, Geneva, Tahoma, sans-serif";
 }
 
 h2 {
@@ -58,25 +63,32 @@ h2 {
     font-size: 30px;
     text-align: center;
     padding-top: 20px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+    font-family: 'Verdana', 'Geneva', 'Tahoma', 'sans-serif';
 }
 
 p {
     text-align: center;
     padding-top: 20px;
 }
-img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    background-color: #086922;
-}
-.logo{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    background-color: #086922;
 
+.logo > img {
+    height: 50px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    float: left;
+}
+.logo > p{
+    color: white;
+    font-family: "Verdana, Geneva, Tahoma, sans-serif";
+    float: right;
+    padding-top:10 px;
+    padding-bottom: 10px;
+}
+.logo {
+    height: 50px;
+    display: block;
+    margin-left: 0;
+    margin-right: 0;
+    background-color: #086922;
 }

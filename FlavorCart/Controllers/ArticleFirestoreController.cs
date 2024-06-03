@@ -25,47 +25,25 @@ public class ArticleFirestoreController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<Article>>> GetAllArticlesAsync()
     {
-        try
-        {
-            //Before returning the data, we need to verify the token
-            var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
-            if (ok != null)
-            {
+        
+           
                 return Ok(await _articleRepository.GetAllAsync());
 
-            }
-        }
-        catch (Exception e)
-        {
-            return BadRequest("Missing token");
-        }
-
-        return BadRequest("No token found");
+           
     }
 
     [HttpGet]
     [Route("{id}")]
     public async Task<ActionResult<Article>> GetArticlesAsync(string id)
     {
-        try
-        {
-            //Before returning the data, we need to verify the token
-            var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
-        if (ok != null)
-         {
+       
         var article = new Article()
         {
             Id = id
         };
 
         return Ok(await _articleRepository.GetAsync(article));
-        }
-    } 
-        catch (Exception e)
-        {
-            return BadRequest("Missing token");
-        }
-        return BadRequest("Invalid token");
+       
     }
 
     [HttpPut]
