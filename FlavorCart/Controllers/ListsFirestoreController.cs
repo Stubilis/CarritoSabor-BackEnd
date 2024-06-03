@@ -50,26 +50,13 @@ public class ListsFirestoreController : ControllerBase
     [Route("{id}")]
     public async Task<ActionResult<Lists>> GetListsAsync(string id)
     {
-
-        try
+        var lists = new Lists()
         {
-            var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
-            if (ok != null)
-            {
-                var lists = new Lists()
-                {
-                    Id = id
-                };
+              Id = id
+        };
 
-                return Ok(await _listsRepository.GetAsync(lists));
-            }
-
-        }
-        catch (Exception e)
-        {
-            return BadRequest("Missing token");
-        }
-        return BadRequest("Ids must match");
+     return Ok(await _listsRepository.GetAsync(lists));
+           
     }
 
     [HttpPut]
