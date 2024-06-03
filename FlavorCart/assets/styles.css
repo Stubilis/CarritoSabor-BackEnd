@@ -5,10 +5,10 @@
     font-family: "Verdana, Geneva, Tahoma, sans-serif";
 }
 
-    .header h1 {
-        font-size: 40px;
-        /*underline the text*/
-        text-decoration: underline;
+.header h1 {
+    font-size: 40px;
+    /*underline the text*/
+    text-decoration: underline;
     }
 
 table {
@@ -18,32 +18,41 @@ table {
 }
 
 td, th {
-    border:1px solid #086922;
     padding: 15px;
     font-size: 22px;
     text-align: center;
-    background-color:white;
 }
 .total {
     font-size: 25px;
     font-weight: bold;
     background-color: #c2d2b1;
 }
+
+tr:not(:last-of-type){
+    border: #086922 1px solid;
+}
+
 /*Round the corners of the last row*/
 tr:last-child > td:first-child {
     border-bottom-left-radius: 10px;
+    
 }
 
 tr:last-child > td:last-child {
     border-bottom-right-radius: 10px;
+
 }
+tr:last-child > th:first-child {
+    border-bottom-left-radius: 10px;
+}
+
 
 table th {
     background-color: #086922;
     color: white;
 }
 
-    table th:first-child {
+    table tr:first-child > th:first-child {
         border-radius: 10px 0 0 0;
     }
 
@@ -91,4 +100,10 @@ p {
     margin-left: 0;
     margin-right: 0;
     background-color: #086922;
+}
+.description p {
+    font-size: 20px;
+    text-align: center;
+    padding-top: 20px;
+    font-family: "Verdana, Geneva, Tahoma, sans-serif";
 }
