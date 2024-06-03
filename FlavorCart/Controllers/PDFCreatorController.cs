@@ -100,7 +100,7 @@ namespace PDF_Generator.Controllers
                 PagesCount = true,
                 HtmlContent = TemplateGenerator.ListsGetHTMLString(_list, articles, Path.Combine(Directory.GetCurrentDirectory(), "assets", "logo.png"),user.Nickname ?? ""),
                 WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
-                HeaderSettings = { FontName = "Verdana, Geneva, Tahoma, sans-serif", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
+                HeaderSettings = { FontName = "Verdana, Geneva, Tahoma, sans-serif", FontSize = 9, Right = "Página [page] de [toPage]", Line = true },
                
                 
                 FooterSettings = 

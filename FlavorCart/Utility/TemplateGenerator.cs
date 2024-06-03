@@ -10,6 +10,8 @@ namespace FlavorCart.Utility
 
         public static string ListsGetHTMLString(Lists list, List<Article> articles, string logoPath,string username)
         {
+            //Format average price to 2 decimals
+           
 
             var sb = new StringBuilder();
             sb.AppendFormat(@"
@@ -23,7 +25,7 @@ namespace FlavorCart.Utility
                                     <body>
                                         <div class='header'><h1>{2}</h1></div>
                                         <div class='table'>
-                                        <table>
+                                        <table  align='center'>
                                             <tr>
                                                 <th></th>
                                                 <th>Nombre</th>
@@ -41,7 +43,7 @@ namespace FlavorCart.Utility
                                             <td>{0}</td>
                                             <td>{1} {2}</td>
                                             <td>{3} €</td>
-                                          </tr>", article.Name, item.Amount, item.Unit, article.AveragePrice);
+                                          </tr>", article.Name, item.Amount, item.Unit, Math.Round(article.AveragePrice, 2));
                 }
                 else
                 {
@@ -50,7 +52,7 @@ namespace FlavorCart.Utility
                                             <td>{0}</td>
                                             <td>{1} {2}</td>
                                             <td>{3} €</td>
-                                          </tr>", article.Name, item.Amount, item.Unit, article.AveragePrice );
+                                          </tr>", article.Name, item.Amount, item.Unit, Math.Round(article.AveragePrice, 2));
                 }
             }
             sb.AppendFormat(@" 
@@ -58,13 +60,13 @@ namespace FlavorCart.Utility
                                         <td></td>
                                         <td></td>
                                         <th>Total</th>
-                                        <td class ='total'>{0}</td>
+                                        <td class ='total'>{0} €</td>
                                         </tr>
                                         </table>
                                        </div>
                                         
                                     </body>
-                                </html>", list.TotalPrice);
+                                </html>", Math.Round(list.TotalPrice,2));
             return sb.ToString();
         }
 
