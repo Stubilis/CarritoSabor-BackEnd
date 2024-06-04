@@ -143,20 +143,10 @@ public class PriceFirestoreController : ControllerBase
     [Route("article/{article}")]
     public async Task<ActionResult<Price>> GetPriceByArticle(string article)
     {
-        try
-        {
-
-            var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));
-            if (ok != null)
-            {
+       
+            
                 return Ok(await _priceRepository.GetPriceByArticle(article));
-}
-        }
-        catch (Exception e)
-        {
-            return BadRequest("Missing token");
-        }
-        return BadRequest("Invalid token");
+
     }
   
 
