@@ -112,7 +112,7 @@ public class UserTokenController : ControllerBase
             Name = payload.Name,
             Email = payload.Email,
             Nickname = "@" + payload.GivenName.ToLower(),
-            Language =payload.Locale
+            Language ="es",
 
         };
         //Now check if the user exists in the user collection
