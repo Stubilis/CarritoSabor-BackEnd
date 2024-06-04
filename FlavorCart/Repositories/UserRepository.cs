@@ -39,10 +39,8 @@ namespace FlavorCart.Repositories
 
         public async Task<User> UpdateByEmailAsync(User entity)
         {
-            var query = _repository._firestoreDb.Collection("Users").WhereEqualTo("Email", entity.Email);
-            var user = await this.QueryRecordsAsync(query);
-            //
-            return await _repository.UpdateAsync(user[0]);
+
+            return await _repository.UpdateAsync(entity);
         }
     }
 }
