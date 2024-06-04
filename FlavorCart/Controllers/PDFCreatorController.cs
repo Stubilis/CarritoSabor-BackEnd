@@ -179,9 +179,9 @@ namespace PDF_Generator.Controllers
                 var objectSettings = new ObjectSettings
                 {
                     PagesCount = true,
-                    HtmlContent = TemplateGenerator.RecipeGetHTMLString(_recipe, articles),
+                    HtmlContent = TemplateGenerator.RecipeGetHTMLString(_recipe, articles, Path.Combine(Directory.GetCurrentDirectory(), "assets", "logo.png")),
                     WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
-                    HeaderSettings = { FontName = "Verdana, Geneva, Tahoma, sans-serif", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
+                    HeaderSettings = { FontName = "Verdana, Geneva, Tahoma, sans-serif", FontSize = 9, Right = "Página [page] de [toPage]", Line = true },
                     FooterSettings = { FontName = "Verdana, Geneva, Tahoma, sans-serif", FontSize = 9, Line = true, Center = "Carrito de Sabor 2024©" }
                 };
 

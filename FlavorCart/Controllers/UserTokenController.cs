@@ -105,12 +105,14 @@ public class UserTokenController : ControllerBase
             var res = await _userTokenRepository.AddAsync(new UserToken() { Email = payload.Email, Token = token, ExpirationTimeSeconds = (long)payload.ExpirationTimeSeconds });
             return Ok("User Saved");
         }
+        //Check if the user is in the user collection
+
         var user = new User()
         {
             Name = payload.Name,
             Email = payload.Email,
             Nickname = "@" + payload.GivenName.ToLower(),
-            Languaje ="ES"
+            Language =payload.Locale
 
         };
         //Now check if the user exists in the user collection
@@ -128,8 +130,6 @@ public class UserTokenController : ControllerBase
     {
         try
         {
-
-
             var result = await _userRepository.GetUserByEmailAsync(user);
             if (result.Email.Equals(user.Email) )
             {

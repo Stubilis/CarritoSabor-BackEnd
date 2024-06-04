@@ -28,7 +28,7 @@ td, th {
     background-color: #c2d2b1;
 }
 
-tr:not(:last-of-type){
+tr:not(:first-of-type):not(:last-of-type) {
     border: #086922 1px solid;
 }
 
@@ -67,13 +67,7 @@ h1 {
     font-family: "Verdana, Geneva, Tahoma, sans-serif";
 }
 
-h2 {
-    color: rgb(92, 192, 59);
-    font-size: 30px;
-    text-align: center;
-    padding-top: 20px;
-    font-family: 'Verdana', 'Geneva', 'Tahoma', 'sans-serif';
-}
+
 
 p {
     text-align: center;
@@ -106,4 +100,20 @@ p {
     text-align: center;
     padding-top: 20px;
     font-family: "Verdana, Geneva, Tahoma, sans-serif";
+  
+}
+.description h2 {
+    font-size: 30px;
+    text-align: center;
+    padding-top: 20px;
+    font-family: "Verdana, Geneva, Tahoma, sans-serif";
+    color: #086922;
+    text-decoration: underline;
+}
+.description {
+ /*Add a line*/
+ border-top: 1px solid #086922;
+    padding: 20px;
+    margin: 20px;
+
 }

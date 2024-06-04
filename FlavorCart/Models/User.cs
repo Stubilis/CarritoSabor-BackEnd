@@ -21,7 +21,7 @@ namespace FlavorCart.Models
         public string Email { get; set; } 
 
         [FirestoreProperty]
-        public string Languaje { get; set; }
+        public string Language { get; set; }
 
 
     }
