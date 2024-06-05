@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+    <UseMSDeployExe>True</UseMSDeployExe>
+    <AllowUntrustedCertificate>true</AllowUntrustedCertificate>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
@@ -11,7 +14,15 @@
     <Compile Remove="Controllers\CategoryController.cs" />
     <Compile Remove="Controllers\HomeController.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="libwkhtmltox.dll" />
+  </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="libwkhtmltox.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DinkToPdf" Version="1.0.8" />
     <PackageReference Include="FirebaseAdmin" Version="3.0.0" />

@@ -45,7 +45,7 @@ namespace FlavorCart
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            string[] origins = { "http://localhost:4200", "http://localhost:5208" };
+            string[] origins = { "http://localhost:4200", "http://localhost:5208" , "http://localhost:5000" };
             //Add CORS Policy to allow cross-origin requests
             //Change the URL to the URL of your frontend
             app.UseCors(options => options.WithOrigins(origins).AllowAnyMethod().AllowAnyHeader());
