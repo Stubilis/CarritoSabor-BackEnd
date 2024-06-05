@@ -112,7 +112,7 @@ public class UserTokenController : ControllerBase
             Name = payload.Name,
             Email = payload.Email,
             Nickname = "@" + payload.GivenName.ToLower(),
-            Language ="es",
+           
 
         };
         //Now check if the user exists in the user collection
@@ -139,6 +139,7 @@ public class UserTokenController : ControllerBase
         }
         catch (NullReferenceException)
         {
+            user.Language = "es";
             await _userRepository.AddAsync(user);
             return Ok("User saved");
         }
