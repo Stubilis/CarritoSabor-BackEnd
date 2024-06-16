@@ -3,7 +3,7 @@
 namespace FlavorCart.Interfaces
 {
     /// <summary>
-    /// Represents the base data that will exists on all records.
+    /// Represents the base data that will exists on the user records.
     /// </summary>
     public interface IUserFirestoreData
     {

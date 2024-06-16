@@ -7,7 +7,7 @@ namespace FlavorCart.Models
     [FirestoreData]
     public class ListItem 
     {
-       
+     //This class is used to create the list   
      
          [FirestoreProperty]
         public string ArticleId { get; set; }

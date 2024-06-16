@@ -9,7 +9,6 @@ namespace Firestore.Controllers;
 public class RecipeFirestoreController : ControllerBase
 {
     private readonly ILogger<UserFirestoreController> _logger;
-    // This should be injected - This is only an example
     private readonly RecipeRepository _recipeRepository = new();
     private UserTokenController _usertokenFirestoreController;
     public RecipeFirestoreController(ILogger<UserFirestoreController> logger)

@@ -10,7 +10,6 @@ namespace FlavorCart.Repositories
         private readonly BaseRepository<UserToken> _repository;
         public UserTokenRepository()
         {
-            // This should be injected - This is just an example.
             _repository = new BaseRepository<UserToken>(Collection.UserTokens);
         }
 

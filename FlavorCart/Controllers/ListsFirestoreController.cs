@@ -170,7 +170,6 @@ public class ListsFirestoreController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Lists>> AddListsAsync(Lists lists)
     {
-
         try
         {
             var ok = await _usertokenFirestoreController.Verify(Request.Headers["Authorization"].ToString().Remove(0, 7));

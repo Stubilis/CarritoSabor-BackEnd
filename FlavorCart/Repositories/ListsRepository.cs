@@ -10,7 +10,6 @@ namespace FlavorCart.Repositories
         private readonly BaseRepository<Lists> _repository;
         public ListsRepository()
         {
-            // This should be injected - This is just an example.
             _repository = new BaseRepository<Lists>(Collection.Lists);
         }
 

@@ -84,7 +84,7 @@ namespace PDF_Generator.Controllers
                 //Get the user name 
                 User user = await _userRepository.GetAsync(new User() { Id = _list.UserId });
 
-
+            //Set the PDF settings
             var globalSettings = new GlobalSettings
             {
                 ColorMode = ColorMode.Color,
@@ -98,6 +98,7 @@ namespace PDF_Generator.Controllers
             var objectSettings = new ObjectSettings
             {
                 PagesCount = true,
+                //Get the HTML string from the template generator
                 HtmlContent = TemplateGenerator.ListsGetHTMLString(_list, articles, Path.Combine(Directory.GetCurrentDirectory(), "assets", "logo.png"),user.Nickname ?? ""),
                 WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
                 HeaderSettings = { FontName = "Verdana, Geneva, Tahoma, sans-serif", FontSize = 9, Right = "Página [page] de [toPage]", Line = true },
@@ -120,9 +121,7 @@ namespace PDF_Generator.Controllers
 
             var file = _converter.Convert(pdf);
 
-            //return Ok("Successfully created PDF document.");
             return File(file, "application/pdf", _list.Name + ".pdf");
-            //return File(file, "application/pdf");
         }
             return BadRequest("Invalid token");
         

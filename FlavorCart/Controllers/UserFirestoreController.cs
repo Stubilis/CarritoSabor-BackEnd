@@ -8,10 +8,9 @@ namespace Firestore.Controllers;
 [Route("[controller]")]
 public class UserFirestoreController : ControllerBase
 {
-    //Create login method with google token
+   
 
     private readonly ILogger<UserFirestoreController> _logger;
-    // This should be injected - This is only an example
     private readonly UserRepository _userRepository = new();
     private ListsRepository _listsRepository = new();
     private UserTokenController _usertokenFirestoreController;

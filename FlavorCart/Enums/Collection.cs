@@ -12,7 +12,5 @@
         Lists = 5,
         Prices = 6,
         UserTokens=7
-
-
     }
 }

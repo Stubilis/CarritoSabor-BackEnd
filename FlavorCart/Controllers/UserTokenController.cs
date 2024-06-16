@@ -45,8 +45,6 @@ public class UserTokenController : ControllerBase
    
     public async Task<ActionResult<User>> UpdateUserAsync(UserToken user)
     {
-      
-
         return Ok(await _userTokenRepository.UpdateAsyncByEmail(user));
     }
 

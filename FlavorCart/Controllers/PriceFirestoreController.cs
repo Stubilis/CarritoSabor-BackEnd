@@ -143,11 +143,7 @@ public class PriceFirestoreController : ControllerBase
     [Route("article/{article}")]
     public async Task<ActionResult<Price>> GetPriceByArticle(string article)
     {
-       
-            
-                return Ok(await _priceRepository.GetPriceByArticle(article));
-
+        return Ok(await _priceRepository.GetPriceByArticle(article));
     }
   
-
 }

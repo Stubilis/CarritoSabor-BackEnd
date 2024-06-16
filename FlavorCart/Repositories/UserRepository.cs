@@ -11,7 +11,6 @@ namespace FlavorCart.Repositories
         private readonly BaseRepository<User> _repository;
         public UserRepository()
         {
-            // This should be injected - This is just an example.
             _repository = new BaseRepository<User>(Collection.Users);
         }
 
@@ -34,12 +33,11 @@ namespace FlavorCart.Repositories
             var users = await QueryRecordsAsync(query);
 
             return users.FirstOrDefault();
-           //return users[0];
+         
         }
 
         public async Task<User> UpdateByEmailAsync(User entity)
         {
-
             return await _repository.UpdateAsync(entity);
         }
     }

@@ -24,24 +24,18 @@ public class ArticleFirestoreController : ControllerBase
 
     [HttpGet]
     public async Task<ActionResult<List<Article>>> GetAllArticlesAsync()
-    {
-        
-           
-                return Ok(await _articleRepository.GetAllAsync());
-
-           
+    {  
+            return Ok(await _articleRepository.GetAllAsync());
     }
 
     [HttpGet]
     [Route("{id}")]
     public async Task<ActionResult<Article>> GetArticlesAsync(string id)
     {
-       
         var article = new Article()
         {
             Id = id
         };
-
         return Ok(await _articleRepository.GetAsync(article));
        
     }
@@ -72,7 +66,6 @@ public class ArticleFirestoreController : ControllerBase
     [HttpDelete]
     [Route("{id}")]
     public async Task<ActionResult> DeleteArticleAsync(string id)
-
     {
         try
         {
@@ -90,7 +83,7 @@ public class ArticleFirestoreController : ControllerBase
                 }
 
                 await _articleRepository.DeleteAsync(article);
-                // añadir eliminar el precio de la lista de precios con el id de articulo
+                // Also delete the prices
                 await _priceRepository.DeletePricesByArticle(article.Id);
 
                 return Ok("Deleted");
@@ -114,6 +107,7 @@ public class ArticleFirestoreController : ControllerBase
             {
                 if (article.Categories.IsNullOrEmpty())
                 {
+                    // Add the default category
                     article.Categories.Add("vmnxxvN628gfp4WVbgM9");
                 }
                 return Ok(await _articleRepository.AddAsync(article));

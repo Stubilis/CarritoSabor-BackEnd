@@ -13,7 +13,6 @@ namespace FlavorCart.Repositories
         private readonly BaseRepository<Article> _artRepository;
         public PriceRepository()
         {
-            // This should be injected - This is just an example.
             _repository = new BaseRepository<Price>(Collection.Prices);
             _artRepository = new BaseRepository<Article>(Collection.Articles);
         }
@@ -21,6 +20,10 @@ namespace FlavorCart.Repositories
         public async Task<List<Price>> GetAllAsync() => await _repository.GetAllAsync<Price>();
 
         public async Task<Price?> GetAsync(Price entity) => (Price?)await _repository.GetAsync(entity);
+
+        public async Task<List<Price>> QueryRecordsAsync(Query query) => await _repository.QueryRecordsAsync<Price>(query);
+
+        // This is specific to Price.
         public async Task<Price> AddAsync(Price entity)
         {
             await _repository.AddAsync(entity);
@@ -54,9 +57,6 @@ namespace FlavorCart.Repositories
             await UpdateAvgPriceAsync(articleId) ;
         }
 
-        public async Task<List<Price>> QueryRecordsAsync(Google.Cloud.Firestore.Query query) => await _repository.QueryRecordsAsync<Price>(query);
-
-        // This is specific to Price.
 
         public async Task<List<Price>> GetPriceByArticle(string articleId)
         {
@@ -81,7 +81,7 @@ namespace FlavorCart.Repositories
             float avg = sum / prices.Count;
             return avg;
         }
-        //borrar los precios de la lista asociados a idArticulo
+        //Delete all prices of an article
         public async Task DeletePricesByArticle(string articleId)
         {
             var query = _repository._firestoreDb.Collection("Prices").WhereEqualTo("ArticleId", articleId);

@@ -22,9 +22,7 @@ public class CategoryFirestoreController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<Category>>> GetAllCategoriesAsync()
     {
-        
-                return Ok(await _categoryRepository.GetAllAsync());
-           
+        return Ok(await _categoryRepository.GetAllAsync());      
     }
 
     [HttpGet]

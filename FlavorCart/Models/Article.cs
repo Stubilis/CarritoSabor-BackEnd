@@ -8,10 +8,12 @@ namespace FlavorCart.Models
     [FirestoreData]
     public class Article : IBaseFirestoreData
     {
-       
+       //The Id is not saved in the database, it will be assigned by the database when the article is saved
+      
         public string Id { get; set; }
 
         //Properties to be able to format the text 
+        //We don't need to use the firestore property attribute because we are not going to save this properties in the database
         private string _name;
         private string _description;
         private string _brand;
