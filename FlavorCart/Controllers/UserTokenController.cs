@@ -85,7 +85,6 @@ public class UserTokenController : ControllerBase
                 Email = payload.Email,
 
             };
-           
             
             var result = await _userTokenRepository.GetUserByEmailAsync(_user);
             if (result != null)
@@ -101,7 +100,7 @@ public class UserTokenController : ControllerBase
         {
             //Add the user to the database
             var res = await _userTokenRepository.AddAsync(new UserToken() { Email = payload.Email, Token = token, ExpirationTimeSeconds = (long)payload.ExpirationTimeSeconds });
-            return Ok("User Saved");
+            //return Ok("User Saved");
         }
         //Check if the user is in the user collection
 
@@ -145,8 +144,6 @@ public class UserTokenController : ControllerBase
        
     }
     
-
-  
     public async Task<GoogleJsonWebSignature.Payload> VerifyGoogleTokenId(string token)
     {
 
